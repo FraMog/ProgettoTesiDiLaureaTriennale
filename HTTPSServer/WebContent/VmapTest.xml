@@ -1,0 +1,60 @@
+<vmap:VMAP version="1.0" xmlns:vmap="http://www.iab.net/videosuite/vmap">
+<!-- 
+	<vmap:AdBreak timeOffset="00:00:05" breakType="linear"
+		breakId="myBreak">
+		
+		<vmap:AdSource id="myAds" allowMultipleAds="true">
+			
+			 DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE 
+			<vmap:AdTagURI templateType="vast3">			
+			  https://localhost:8443/HTTPSServer/CompanionTest.xml
+			</vmap:AdTagURI>
+			
+			
+		
+			<vmap:AdTagURI templateType="vast3">
+			  https://localhost:8443/HTTPSServer/VastTest2.xml
+			</vmap:AdTagURI>
+			
+		 Solo un adTagURI funziona
+			<vmap:AdTagURI templateType="vast3">
+			  https://localhost:8443/HTTPSServer/VastTest3.xml
+			</vmap:AdTagURI>
+		
+		></vmap:AdSource>
+	</vmap:AdBreak>
+	 -->
+	    
+	
+	
+	<vmap:AdBreak timeOffset="00:03:39" breakType="nonlinear"
+		breakId="myBreak2">
+		<vmap:AdSource id="myAds2"  allowMultipleAds="true">
+		<!-- DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE -->
+			<vmap:AdTagURI templateType="vast3">
+			  https://localhost:8443/HTTPSServer/CompanionTest.xml
+			</vmap:AdTagURI>
+			<!-- 
+			<vmap:AdTagURI templateType="vast3">
+			  https://localhost:8443/HTTPSServer/VastTest2.xml
+			</vmap:AdTagURI>
+			 -->
+		</vmap:AdSource>
+	</vmap:AdBreak>
+	
+	<vmap:AdBreak timeOffset="00:03:48" breakType="nonlinear"
+		breakId="myBreak2">
+		<vmap:AdSource id="myAds2"  allowMultipleAds="true">
+		<!-- DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE -->
+			<vmap:AdTagURI templateType="vast3">
+			  https://localhost:8443/HTTPSServer/CompanionTest2.xml
+			</vmap:AdTagURI>
+			<!-- 
+			<vmap:AdTagURI templateType="vast3">
+			  https://localhost:8443/HTTPSServer/VastTest2.xml
+			</vmap:AdTagURI>
+			 -->
+		</vmap:AdSource>
+	</vmap:AdBreak>
+	
+</vmap:VMAP>

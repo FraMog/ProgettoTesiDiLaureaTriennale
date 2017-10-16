@@ -1,0 +1,30 @@
+<VAST version="3.0" >
+<Ad id="22175">
+<InLine>
+<AdSystem version="v0.2.225"><![CDATA[Acudeo Compatible]]></AdSystem>
+   <AdTitle> <![CDATA[Vast test]]></AdTitle>
+   <Impression>
+   <![CDATA[ about:blank ]]>
+   </Impression>
+   <Creatives>
+   <Creative sequence="1">
+<NonLinearAds>
+
+<NonLinear height="180" width="320" maintainAspectRatio="true" scalable="true" minSuggestedDuration="00:01:20">
+<StaticResource creativeType="video/mp4">
+<!-- DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE -->
+<![CDATA[https://stormapp.herokuapp.com/resource/video/360/venezia_square_360.mp4]]>
+<!-- <![CDATA[http://www.napolidavivere.it/wp-content/uploads/2017/01/Incontri-di-Archeologia-gratuiti-al-MANN-il-Museo-Archeologico-Nazionale-di-Napoli-640x360-640x360.jpg]]>    -->
+<NonLinearClickThrough><![CDATA[http://www.jwplayer.com]]></NonLinearClickThrough>
+</StaticResource>
+</NonLinear>
+   
+</NonLinearAds>
+</Creative>
+   </Creatives>
+</InLine>
+</Ad>
+</VAST>
+
+
+

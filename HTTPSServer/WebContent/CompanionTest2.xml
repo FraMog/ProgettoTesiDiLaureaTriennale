@@ -1,0 +1,104 @@
+<VAST version="3.0">
+	<Ad id="22175">
+		<InLine>
+			<AdSystem version="v0.2.225"><![CDATA[Acudeo Compatible]]></AdSystem>
+			<AdTitle> <![CDATA[Vast test]]></AdTitle>
+			<Impression>
+   <![CDATA[ about:blank ]]>
+			</Impression>
+			<Creatives>
+			<!--  Non usare l'attributo sequence del Creative altrimenti IMA non legge i companions -->
+				<Creative>
+					<NonLinearAds>
+
+						<NonLinear height="169" width="236" maintainAspectRatio="true"
+							scalable="true" minSuggestedDuration="00:00:07">
+							<StaticResource creativeType="image/png">
+<!-- DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE -->
+<![CDATA[https://localhost:8443/HTTPSServer/ermafroditoMOD.png]]>
+							</StaticResource>
+							<NonLinearClickThrough><![CDATA[http://www.jwplayer.com]]></NonLinearClickThrough>
+						</NonLinear>
+
+					</NonLinearAds>
+				</Creative>
+
+
+	<!--  Non usare l'attributo sequence del Creative altrimenti IMA non legge i companions -->
+				<Creative>
+					<CompanionAds required="all">
+
+	<!--
+						<Companion width="400" height="200" adSlotId ="companion-ad1">
+							<StaticResource creativeType="video/mp4">
+					
+<![CDATA[https://i.giphy.com/media/641arBi22PAty/giphy.mp4]]>
+							
+							 </StaticResource>
+						</Companion>
+	
+						<Companion width="320" height="180"   adSlotId ="companion-ad2">
+							<StaticResource creativeType="video/mp4">
+<![CDATA[https://stormapp.herokuapp.com/resource/video/360/venezia_square_360.mp4]]>
+							</StaticResource>
+						</Companion>
+						
+							<Companion width="100" height="100"   adSlotId ="companion-ad3">
+							<StaticResource creativeType="audio/mp3">
+<![CDATA[https://www.sample-videos.com/audio/mp3/crowd-cheering.mp3]]>
+							</StaticResource>
+						</Companion>
+						
+				
+							<Companion width="30" height="25"   adSlotId ="companion-ad1">
+							<StaticResource creativeType="image/jpeg">
+ DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE 
+<![CDATA[https://ssl.c.photoshelter.com/img-get/I00006StPFKIH8hs/t/200/I00006StPFKIH8hs.jpg]]>
+							</StaticResource>
+						</Companion>
+						
+						
+						<Companion width="30" height="25"   adSlotId ="companion-ad2">
+							<StaticResource creativeType="image/jpeg">
+ DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE 
+<![CDATA[https://ssl.c.photoshelter.com/img-get/I00006StPFKIH8hs/t/200/I00006StPFKIH8hs.jpg]]>
+							</StaticResource>
+						</Companion>
+						
+						
+						<Companion width="30" height="25"   adSlotId ="companion-ad3">
+
+							<StaticResource creativeType="image/jpeg">
+ DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE 
+<![CDATA[https://ssl.c.photoshelter.com/img-get/I00006StPFKIH8hs/t/200/I00006StPFKIH8hs.jpg]]>
+							</StaticResource>
+						</Companion>
+						
+						<Companion width="30" height="25"   adSlotId ="companion-ad4">
+							<StaticResource creativeType="image/jpeg">
+ DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE
+<![CDATA[https://ssl.c.photoshelter.com/img-get/I00006StPFKIH8hs/t/200/I00006StPFKIH8hs.jpg]]>
+							</StaticResource>
+						</Companion>
+						
+						
+						<Companion width="300" height="250">
+							<StaticResource creativeType="image/png">
+								 DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE
+<![CDATA[https://pbs.twimg.com/media/C-RgNIEWAAE5UWL.png]]>
+							</StaticResource>
+						</Companion>
+				-->				
+					</CompanionAds>
+				</Creative>
+
+
+
+			</Creatives>
+		</InLine>
+	</Ad>
+</VAST>
+
+
+
+

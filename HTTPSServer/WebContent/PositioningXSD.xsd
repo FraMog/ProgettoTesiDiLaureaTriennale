@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="Root">
+		<xs:annotation>
+			<xs:documentation>Root element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="NonLinearAd" maxOccurs="unbounded"
+					minOccurs="1" type="adPositioningNonLinear">
+				</xs:element>
+				<xs:element name="companionAds" minOccurs="1"  maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="CompanionAd" maxOccurs="unbounded"
+								minOccurs="0" type="adPositioning">
+							</xs:element>
+							
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:complexType name="adPositioning">
+		<xs:attribute type="xs:decimal" name="positionX" use="required"></xs:attribute>
+		<xs:attribute type="xs:decimal" name="positionY" use="required"></xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="adPositioningNonLinear">
+		<xs:complexContent>
+			<xs:extension base="adPositioning">
+				<xs:sequence>
+					<xs:element name="Id" type="xs:string" minOccurs="1">
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+</xs:schema>

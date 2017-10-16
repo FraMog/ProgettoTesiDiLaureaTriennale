@@ -1,0 +1,50 @@
+<VAST version="3.0">
+	<Ad id="22175">
+		<InLine>
+			<AdSystem version="v0.2.225"><![CDATA[Acudeo Compatible]]></AdSystem>
+			<AdTitle> <![CDATA[Vast test]]></AdTitle>
+			<Impression>
+   <![CDATA[ about:blank ]]>
+			</Impression>
+			<Creatives>
+				<!-- Non usare l'attributo sequence del Creative altrimenti IMA non legge 
+					i companions -->
+				<Creative>
+					<NonLinearAds>
+
+						<NonLinear height="112.67" width="157.34" maintainAspectRatio="true"
+							scalable="true" minSuggestedDuration="00:00:09">
+							<StaticResource creativeType="image/png">
+								<!-- DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE -->
+<![CDATA[https://localhost:8443/HTTPSServer/fanciullaDiAnzioMOD.png]]>
+							</StaticResource>
+							<NonLinearClickThrough><![CDATA[http://www.jwplayer.com]]></NonLinearClickThrough>
+						</NonLinear>
+
+					</NonLinearAds>
+				</Creative>
+
+
+				<Creative>
+					<CompanionAds required="all">
+						<Companion width="157.34" height="112.67" adSlotId="companion-ad1">
+							<StaticResource creativeType="image/png">
+								<!-- DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE -->
+<![CDATA[https://localhost:8443/HTTPSServer/fanciullaDiAnzio2MOD.png]]>
+							</StaticResource>
+						</Companion>
+
+
+					</CompanionAds>
+				</Creative>
+
+
+
+			</Creatives>
+		</InLine>
+	</Ad>
+</VAST>
+
+
+
+
