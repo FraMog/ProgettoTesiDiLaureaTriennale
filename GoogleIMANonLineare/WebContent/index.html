@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<!-- Link a  -->
+<html>
+<head>
+<title>IMA HTML5 Simple Demo</title>
+
+<link rel="stylesheet" type="text/css" href="style.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+
+<!-- Aggiunto per non cachare la pagina -->
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="-1">
+
+</head>
+
+<body>
+	<!-- Div che contiene semplicemnte il video player -->
+	<div id="mainContainer">
+		<div id="content">
+
+
+			<video controls id="contentElement">
+				<source src="museo.mp4">
+				<source
+					src="https://stormapp.herokuapp.com/resource/video/360/venezia_square_360.mp4"></source>
+				<source src="video.mp4"></source>
+				<!--  <source src="http://rmcdn.2mdn.net/Demo/vast_inspector/android.mp4"></source> -->
+				<!-- <source src="http://rmcdn.2mdn.net/Demo/vast_inspector/android.webm"></source> -->
+			</video>
+
+
+
+
+
+
+		</div>
+
+		<!-- Div dove verranno inseriti gli annunci lineari e non lineari, nel caso Google IMA SDK riesca a leggere correttamente la VAST RESPONSE 
+      Tale div, tramite CSS, è settato per essere in overlay rispetto al video player
+      Questo div non viene mostrato, in quanto gli annunci vengono gestiti completamente tramite la mia implementazione-->
+
+		<div id="adContainer"></div>
+
+
+
+
+
+
+
+
+		<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     FUNZIONE che è un metodo alternativo per la lettura dei companion ads: usando le stesse API usate da Google 
+     DFP (DoubleclickForPublishers): in questo motodo però, a differenza di quello più dinamico illustrato in ads.js
+     è necessario stabilire a priori le dimensioni del companionContainer e le dimensioni dei companion ads ((le cui dimensioni si riferiscono ai valori inseriti negli attributi width ed height nel tag <companion> e non quelle effettive del contenuto multimediale)) 
+     non possono, sempre a differenza dell'altro metodo che permette di mostrare companions di ogni size, essere ignorate, 
+     ma devono essere ben conosciute a priori e devono essere perfettamemente uguali a quelle del divCompanion che ho settato
+     per mostrare quell'annuncio: tutto ciò si manifesta nell'istruzione
+     
+      ->googletag.defineSlot('companion-ad1', [728, 90], 'companionDiv')<-
+      nel quale registro uno slot di nome companion-ad1 che può mostrare nel div con id companionDiv solo annunci
+      companion di size (la cui size è intesa come i valori inseriti negli attributi width ed height nel tag <companion> e non quelle effettive del contenuto multimediale) 728x90 
+      <div id "companionDiv"></div>
+     
+     <script type="text/javascript" src="https://imasdk.googleapis.com/js/sdkloader/gpt_proxy.js"></script>
+         <script type="text/javascript">
+        
+         var googletag = googletag || {};
+         googletag.cmd = googletag.cmd || [];
+         (function() {
+           var gads = document.createElement('script');
+           gads.async = true;
+           gads.type = 'text/javascript';
+           gads.src = '//www.googletagservices.com/tag/js/gpt.js';
+           var node = document.getElementsByTagName('script')[0];
+           node.parentNode.insertBefore(gads, node);
+         })();
+         
+         googletag.cmd.push(function() {
+        	 
+        	 alert('qua');
+             // Supply YOUR_NETWORK/YOUR_UNIT_PATH in place of 6062/iab_vast_samples.
+             googletag.defineSlot('companion-ad1', [728, 90], 'companionDiv')
+                 .addService(googletag.companionAds())
+                 .addService(googletag.pubads());
+             googletag.companionAds().setRefreshUnfilledSlots(true);
+             googletag.pubads().enableVideoAds();
+             googletag.enableServices();
+           });
+         // Using the command queue to enable asynchronous loading.
+         // The unit will not actually display now - it will display when
+         // the video player is displaying the ads.
+         </script>
+         
+              <div id="companionDiv" style="width:728px; height:90px;"></div>
+         <script>
+         googletag.cmd.push(function() { googletag.display('companionDiv'); alert('hereInPush'); });
+         alert('here');
+         
+       </script>
+       -->
+		<div id="videoPlayerDefaultFullScreenButtonCover"></div>
+
+
+		<div id="adDivsContainer"></div>
+
+		<button id="fullscreenButton">[&nbsp;&nbsp;&nbsp;]</button>
+	</div>
+
+
+
+
+	<script type="text/javascript"
+		src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+
+
+
+	<script type="text/javascript" src="ads.js"></script>
+
+
+	<script type="text/javascript" src="fullscreen.js"></script>
+</body>
+
+
+</html>
