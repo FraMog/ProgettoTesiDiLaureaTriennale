@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="https://localhost:8443/HTTPSServer" xmlns="https://localhost:8443/HTTPSServer"
 	elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<!-- 1) xmlns:xs : Definisce dove andare a prendere informazioni per l'uso 
+		riguardanti gli elementi di default come xs:element 2) targetNamespace: dove 
+		questo schema e gli elementi che esso definisce (come adPositioning) vanno 
+		storati; deve essere un URL, anche fittizio che non deve corrispondere per 
+		forza all'esatta posizione sul Web. 3)xmlns: da dove devo andare a prendere 
+		le definizioni, per l'uso stesso all'interno di questo documento, degli elementi 
+		qui definiti: se viene tolto nella riga dove è presente <xs:extension base="adPositioning"> 
+		darà errore perché non si sa dove andare a prendere la definizione del tipo 
+		adPositioning. -->
+
 	<xs:element name="Root">
 		<xs:annotation>
 			<xs:documentation>Root element</xs:documentation>
@@ -8,25 +20,55 @@
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="NonLinearAd" maxOccurs="unbounded"
-					minOccurs="1" type="adPositioningNonLinear">
-				</xs:element>
-				<xs:element name="companionAds" minOccurs="1"  maxOccurs="1">
+					minOccurs="1">
+					
 					<xs:complexType>
-						<xs:sequence>
-							<xs:element name="CompanionAd" maxOccurs="unbounded"
-								minOccurs="0" type="adPositioning">
-							</xs:element>
-							
-						</xs:sequence>
+					
+						<xs:complexContent>
+							<xs:extension base="adPositioningNonLinear">
+								<xs:sequence>
+									<xs:element name="CompanionAds" maxOccurs="1"
+										minOccurs="0">
+										
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="CompanionAd" maxOccurs="unbounded"
+													minOccurs="1" type="adPositioning">
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+										
+									</xs:element>
+								</xs:sequence>
+							</xs:extension>
+						</xs:complexContent>
+						
 					</xs:complexType>
+					
 				</xs:element>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
 
 	<xs:complexType name="adPositioning">
-		<xs:attribute type="xs:decimal" name="positionX" use="required"></xs:attribute>
-		<xs:attribute type="xs:decimal" name="positionY" use="required"></xs:attribute>
+		<xs:sequence>
+			<xs:element name="positionX" maxOccurs="1" minOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:minInclusive value="0" />
+						<xs:maxInclusive value="640" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="positionY" maxOccurs="1" minOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:minInclusive value="0" />
+						<xs:maxInclusive value="360" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
 	</xs:complexType>
 
 	<xs:complexType name="adPositioningNonLinear">
@@ -39,5 +81,5 @@
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	
+
 </xs:schema>

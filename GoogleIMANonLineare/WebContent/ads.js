@@ -16,6 +16,13 @@ var ads = [];
  */
 var annunciVMAPOffset;
 var adsManager;
+
+/*Array che presenta un item per ogni NonLinearAd: ogni chiave sarà l'Id del tag <Id> (che sarà lo stesso valore del rispettivo <Ad>
+ * ogni valore sarà composto da una struttura contenente la coppia di valori per l'annuncio non Lineare ed un array ordinato in base all'ordine 
+ * nel quale i companion vengono inseriti nella sintassi del file Positioning.xml contenente le coppie di posizioni (x,y) per tutti i companion
+ */
+var positions = {};
+
 /* Array composto da AdsDescriber che è l'oggetto (con costruttore in fondo a questo documento) che mi registra le informazioni
  * degli annunci 
  */
@@ -74,6 +81,62 @@ var adsRequest = new google.ima.AdsRequest();
 
 //DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE!
 adsRequest.adTagUrl = 'https://localhost:8443/HTTPSServer/VmapTest.xml';
+
+
+//Funzioni per richiedere l'XML con le posizioni
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+	if (this.readyState == 4 && this.status == 200) {
+		// Typical action to be performed when the document is ready:
+		//Parsing dal documento sotto forma di stringa
+
+		parser = new DOMParser();
+		var xmlDoc = parser.parseFromString(xhttp.responseText, "text/xml");
+		var annunciNonLineari = xmlDoc.getElementsByTagName("NonLinearAd");
+		var indice;
+		for(indice=0; indice<annunciNonLineari.length; indice++){
+			var iesimoNonLineareTag=annunciNonLineari[indice];
+			//Creo la struttura che deve avere un hashMap con la posizione del non lineare e l'array dei companions
+			var iesimoItem = {};
+			//E la aggiungo alla map avendo come chiave l'Id
+			var key = iesimoNonLineareTag.getElementsByTagName("Id")[0].childNodes[0].nodeValue;
+			//alert(key);
+			positions[key]= iesimoItem ;
+
+			//Creo l'oggetto che deve avere al suo interno le dimensioni del nonlineare e la aggiungo alla struttura precedente
+			var posizioneNonLineare={};
+			iesimoItem["posizioneNonLineare"]=posizioneNonLineare;
+			//E la popolo con le dimensioni opportune
+			posizioneNonLineare["positionX"]= iesimoNonLineareTag.getElementsByTagName("positionX")[0].childNodes[0].nodeValue;
+			posizioneNonLineare["positionY"]= iesimoNonLineareTag.getElementsByTagName("positionY")[0].childNodes[0].nodeValue;
+
+			//Creo l'oggetto che deve essere l'array contenente la posizione di tutti i companion relativi all'annuncio nonLineare
+			//e lo aggiungo alla struttura precedente
+			var arrayDellePosizioniDeiCompanion=[];
+
+			iesimoItem["arrayDellePosizioniDeiCompanion"]=arrayDellePosizioniDeiCompanion;
+			//Considero tutti i companionVontenuti 
+			var companionAdsPerQuestoNonLinear=iesimoNonLineareTag.getElementsByTagName("CompanionAd");
+			var indice2;
+			for (indice2=0; indice2<companionAdsPerQuestoNonLinear.length;indice2++){
+				companionAdIesimo=companionAdsPerQuestoNonLinear[indice2];
+				//Creo l'oggetto dove inserire le dimensioni del iesimo2 companion e lo aggiungo all'array
+				var posizioneDelIesimo2Companion={};
+				arrayDellePosizioniDeiCompanion[indice2]=posizioneDelIesimo2Companion;
+				posizioneDelIesimo2Companion["positionX"]= companionAdIesimo.getElementsByTagName("positionX")[0].childNodes[0].nodeValue;
+				posizioneDelIesimo2Companion["positionY"]= companionAdIesimo.getElementsByTagName("positionY")[0].childNodes[0].nodeValue;
+			}
+
+
+		}
+		
+	}
+};
+xhttp.open("GET", "https://localhost:8443/HTTPSServer/Positioning.xml", true);
+xhttp.send();
+
+
+
 
 //Slot sizes per gli annunci lineari e non lineari
 adsRequest.linearAdSlotWidth = LINEAR_SLOT_WIDTH;
@@ -260,7 +323,7 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 
 		//Metto in pausa quando metto in pausa il video base anche tutti i companion di tipo video
 		var currentCompanVideoTag= $("div#adDivsContainer video");
-		////alert"currentCompanVideoTag " + currentCompanVideoTag.length);
+		//////alert"currentCompanVideoTag " + currentCompanVideoTag.length);
 		for (iterator=0; iterator<currentCompanVideoTag.length; iterator++){
 			currentCompanVideoTag[iterator].pause(); 
 
@@ -346,16 +409,18 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 				 * 
 				 * PURTROPPO NON SI PUO' fare con VMAP NE VAST perché non è prevista la posizione tra le specifiche dei nonLineari
 				 */
-				//Variabile che mi serve a stabilire a quale VAST Response appartenga l'annuncio che si sta valutando.
-				//Per stabilirlo uso l'array annunciVMAPOffset contenente i valori di timeOffset per tute le VMAP
-				//Responses lette in ordine di timeOffset crescente (cosi come è anche nella VMAP Response nella quale
-				//inserisco gli AdBreak in ordine di timeOffset crescente.
-				var indiceVMAPTimeOffset=0;
-				while (indiceVMAPTimeOffset<annunciVMAPOffset.length && ad.getAdPodInfo().getTimeOffset()!= annunciVMAPOffset[indiceVMAPTimeOffset]) indiceVMAPTimeOffset++;
 
-				//Se ho trovato una corrispondenza
-				if(indiceVMAPTimeOffset<annunciVMAPOffset.length){
-					//A seconda della VAST Response assegno delle azioni diverse
+				//A seconda della VAST Response assegno delle azioni diverse
+
+				//La posizine che gli annunci lineari e non lineari devono assumere è legata all'array
+				//position
+				//alert(ad.getAdId());
+				var itemPosizioneDaAssumereNonLineareECompanion = positions[ad.getAdId()];
+				//alert(itemPosizioneDaAssumereNonLineareECompanion);
+				var coordinateNonLineare=itemPosizioneDaAssumereNonLineareECompanion["posizioneNonLineare"];
+				//alert(coordinateNonLineare + " coordinateNonLineare");
+				posizionaAnnuncioAPartireDaPosInAltoASx(divNonLinear, ad.getVastMediaWidth(), ad.getVastMediaHeight(),coordinateNonLineare["positionX"], coordinateNonLineare["positionY"] , 0);
+				/*
 					switch (indiceVMAPTimeOffset){
 					case 0:{
 						posizionaAnnuncioAPartireDaPosInAltoASx(divNonLinear, ad.getVastMediaWidth(), ad.getVastMediaHeight(),640-ad.getVastMediaWidth(), 0 , 0);
@@ -368,7 +433,8 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 					//Aggiungere nuovi "case" per altre VAST Response
 					default: break;
 					}
-				}
+				 */
+
 
 
 				adIndex++;
@@ -398,117 +464,66 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 						ads[indexIiziaAdAggiungereAd]=companionAdsToAdd[x];
 						indexIiziaAdAggiungereAd++;
 					}
-				}
-
-				
-				/*
-				 * Variabile che mi scorre tutti gli annunci companion che sto analizzando nella corrente VAST Responses;
-				 * si ricordi che IMA è in grado di leggere annunci companion solo per la prima VAST Response che analizza
-				 * 
-				 */
-
-				var companionAdsIndex=0;
-				
-				
-				//Creo nuovi div per mostrare gli annunci companion appena letti
-				for (var q=adIndex; q<ads.length;q++){
-
-					var companionAd = ads[q];
-					var divCompanion = document.createElement('div');
-					divCompanion.setAttribute("id", 'companion-ad' + adIndex);
-					divCompanion.setAttribute("class", 'companionsClass' );
-					document.getElementById("adDivsContainer").appendChild(divCompanion);
-
-					// Prendo l' HTML content dal companion ad.
-					var content = companionAd.getContent();
-					// Inserisco l'HTML content nel divCompanion che deve mostrare l'annuncio companion, tuttavia
-					//per avere una migliore customizzazione (ad esempio per poter riconoscere quando un companion
-					//di tipo "video" è terminato è possibile inserire l'evento iframe.onended, evento che IMA SDK non
-					//non prevede per gli annunci companion) cancellero l'HTML scaricato da IMA SDK in automatico
-					// (ossia companionAd.getContent()) e lo sostituirò con uno customizzato che mostri lo stesso
-					//annuncio companion
-
-					divCompanion.innerHTML = content;
 
 
-
-					//Modifico ogni annuncio creandone un div a parte
-
-
-					var url= divCompanion.firstChild.firstChild.src;
-
-					if(url==null){
-						//Nel caso in cui il companion ad è un immagine il modo corretto di prendere l'url è questo
-						url= divCompanion.firstChild.firstChild.firstChild.src;
-					}
-
-
-					var urlType = url.substr(url.lastIndexOf('.') + 1);
 
 					/*
-					 * Modifico l'HTML del div appena creato aggiungendo le informazioni appena create
+					 * Variabile che mi scorre tutti gli annunci companion che sto analizzando nella corrente VAST Responses;
+					 * si ricordi che IMA è in grado di leggere annunci companion solo per la prima VAST Response che analizza
+					 * 
 					 */
-					modificaInnerHTMLDivAnnuncio(divCompanion,  urlType, url, companionAd.getWidth(), companionAd.getHeight(), q, ad.getMinSuggestedDuration()*1000, ad.getAdPodInfo().getTimeOffset());
 
-					
-					
-					//In base alla VAST Response alla quale gli annunci companion appartengono, verranno svolte azioni diverse su ogni annuncio
-					if(indiceVMAPTimeOffset<annunciVMAPOffset.length){
-						//A seconda della VAST Response assegno delle azioni diverse
-						switch (indiceVMAPTimeOffset){
-						case 0:{
-							/*
-							 * In base al numero di companion nella corrente VAST Response (companionAdsIndex) sposto l'annuncio in una posizione arbitraria: si possono aggiungere
-							 * anche altri valori di companionAdsIndex oppure si può rendere il tutto più interattivo lasciando che sia l'user tramite ad esempio
-							 * un form a scegliere dove mostrare un annuncio, oppure tramite valori scambiati attraverso un altro file XML con il server.
-							 * PURTROPPO NON SI PUO' fare con VMAP NE VAST perché non è prevista la posizione tra le specifiche dei companions
-							 */
+					var companionAdsIndex=0;
 
-							switch (companionAdsIndex){
-							case 0: {
-								posizionaAnnuncioAPartireDaPosInAltoASx(divCompanion,companionAd.getWidth(), companionAd.getHeight(), 0, 360-companionAd.getHeight(), adIndex);
-								break;
-							}
-							case 1: {
-								posizionaAnnuncioAPartireDaPosInAltoASx(divCompanion,companionAd.getWidth(), companionAd.getHeight(), 640-companionAd.getWidth(), 0, adIndex);
-								break;
-							}
-							case 2: {
-								posizionaAnnuncioAPartireDaPosInAltoASx(divCompanion,companionAd.getWidth(), companionAd.getHeight(), 0, 360-companionAd.getHeight(), adIndex);
-								break;
-							}
-							case 3: {
-								posizionaAnnuncioAPartireDaPosInAltoASx(divCompanion,companionAd.getWidth(), companionAd.getHeight(), 150, 100, adIndex);
-								break;
-							}
-							case 4: {
-								posizionaAnnuncioAPartireDaPosInAltoASx(divCompanion,companionAd.getWidth(), companionAd.getHeight(), 70, 70, adIndex);
-								break;
-							}
-							case 5: {
-								posizionaAnnuncioAPartireDaPosInAltoASx(divCompanion,companionAd.getWidth(), companionAd.getHeight(), 40, 40, adIndex);
-								break;
-							}
-							default: break;
-							}
-							adIndex++;
-							break;
-						}
-						
-						case 1:{
-							
-							//Comportamento non impostato nella fase di testing
-						}
-						
+					//Recupero dall'item di position correntemente analizzato l'array contenente la posizione
+					//dei companion
+					var arrayPosizioniDeiCompanion=itemPosizioneDaAssumereNonLineareECompanion["arrayDellePosizioniDeiCompanion"];
+					//alert(arrayPosizioniDeiCompanion + " arrayPosizioniDeiCompanion");
 
-						default: break;
+					//Creo nuovi div per mostrare gli annunci companion appena letti
+					for (var q=adIndex; q<ads.length;q++){
+
+						var companionAd = ads[q];
+						var divCompanion = document.createElement('div');
+						divCompanion.setAttribute("id", 'companion-ad' + adIndex);
+						divCompanion.setAttribute("class", 'companionsClass' );
+						document.getElementById("adDivsContainer").appendChild(divCompanion);
+
+						// Prendo l' HTML content dal companion ad.
+						var content = companionAd.getContent();
+						// Inserisco l'HTML content nel divCompanion che deve mostrare l'annuncio companion, tuttavia
+						//per avere una migliore customizzazione (ad esempio per poter riconoscere quando un companion
+						//di tipo "video" è terminato è possibile inserire l'evento iframe.onended, evento che IMA SDK non
+						//non prevede per gli annunci companion) cancellero l'HTML scaricato da IMA SDK in automatico
+						// (ossia companionAd.getContent()) e lo sostituirò con uno customizzato che mostri lo stesso
+						//annuncio companion
+
+						divCompanion.innerHTML = content;
+
+
+
+						//Modifico ogni annuncio creandone un div a parte
+
+
+						var url= divCompanion.firstChild.firstChild.src;
+
+						if(url==null){
+							//Nel caso in cui il companion ad è un immagine il modo corretto di prendere l'url è questo
+							url= divCompanion.firstChild.firstChild.firstChild.src;
 						}
+
+
+						var urlType = url.substr(url.lastIndexOf('.') + 1);
+
+						/*
+						 * Modifico l'HTML del div appena creato aggiungendo le informazioni appena create
+						 */
+						modificaInnerHTMLDivAnnuncio(divCompanion,  urlType, url, companionAd.getWidth(), companionAd.getHeight(), q, ad.getMinSuggestedDuration()*1000, ad.getAdPodInfo().getTimeOffset());
+
+						var iesimaPosizioneCompanion= arrayPosizioniDeiCompanion[companionAdsIndex++];
+						posizionaAnnuncioAPartireDaPosInAltoASx(divCompanion,companionAd.getWidth(), companionAd.getHeight(), iesimaPosizioneCompanion["positionX"], iesimaPosizioneCompanion["positionY"], adIndex);
+
 					}
-
-
-
-
-
 				}
 
 				//Se sto gia in modalità fullscreen prima che l'annuncio sia iniziato devo ridimensionare la size degli annunci
@@ -548,7 +563,7 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 	//dell'annuncio
 	//Se minSuggestedDuration!=null allora l'annuncio è un nonLineare, altrimenti è un companion
 	function modificaInnerHTMLDivAnnuncio(div , urlType, url, width, height, q, minSuggestedDuration, timeOffset){
-		////alertannunciVMAPOffset[numeroVASTResponsesLette] + " starting time ");
+		//////alertannunciVMAPOffset[numeroVASTResponsesLette] + " starting time ");
 		$(div).data("urlType", urlType);
 		//Aggiungo i formati più comuni per le immagini
 		switch (urlType){
@@ -852,9 +867,9 @@ function onContentResumeRequested() {
 //Costruttore dei describer degli annunci
 
 function AdsDescriber(millisecondStartShowing,millisecondEndShowing, durata, divCompanion,firstDivChild , urlType ){
-	//alertmillisecondStartShowing + " " + adIndex);
+	////alertmillisecondStartShowing + " " + adIndex);
 	this.millisecondStartShowing=millisecondStartShowing;
-	//////alertmillisecondEndShowing/1000 + " millisecondEndShowing");
+	////////alertmillisecondEndShowing/1000 + " millisecondEndShowing");
 	this.millisecondEndShowing = millisecondEndShowing;
 	this.durata=durata;
 	this.divCompanion=divCompanion;
