@@ -35,6 +35,8 @@ import javax.servlet.http.HttpServletResponse;
 				"/VpaidCallbackAd.js",
 				"/VPAIDTestNonLineare.xml",
 				"/VpaidNonLinear.js",
+				"/PositioningXSD.xsd",
+				"/Positioning.xml",
 		})
 
 public class FilterNonCache implements Filter {

@@ -791,9 +791,19 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 			console.error("height DELL'annuncio " + annID + " non delle dimensioni giuste");
 		} 
 
+		/*
+		if (desideredX+width<=640){
+			divContenitoreAnnuncio.style.left= desideredX + "px";
+		} 
+		else{
+			divContenitoreAnnuncio.style.left= 640-width + "px";
+		}
+		*/
+		
+		
 		divContenitoreAnnuncio.style.left= desideredX + "px";
 
-		if (desideredY+height<340){
+		if (desideredY+height<=340){
 			divContenitoreAnnuncio.style.top= desideredY + "px";
 		} 
 		else{

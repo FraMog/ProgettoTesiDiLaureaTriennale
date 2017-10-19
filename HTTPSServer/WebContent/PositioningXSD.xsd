@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="https://localhost:8443/HTTPSServer" xmlns="https://localhost:8443/HTTPSServer"
+	targetNamespace="http://localhost/HTTPSServer" xmlns="http://localhost/HTTPSServer"
 	elementFormDefault="qualified" attributeFormDefault="unqualified">
 
 	<!-- 1) xmlns:xs : Definisce dove andare a prendere informazioni per l'uso 

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE xml>
-<Root xmlns="https://localhost:8443/HTTPSServer" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="https://localhost:8443/HTTPSServer PositioningXSD.xsd">
+<Root xmlns="http://localhost/HTTPSServer" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://localhost/HTTPSServer PositioningXSD.xsd">
 	<NonLinearAd>
 		<!-- 640-157.34 -->
 		<!-- <positionX>482.66</positionX> -->
