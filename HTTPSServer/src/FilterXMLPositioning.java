@@ -1,7 +1,7 @@
 
 
 import java.io.IOException;
-import java.util.Enumeration;
+
 
 import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
@@ -12,6 +12,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Servlet Filter implementation class FilterXMLPositioning
@@ -53,7 +54,12 @@ public class FilterXMLPositioning implements Filter {
 		if(!httpReq.getHeader("user-agent").startsWith("Java")){
 
 			System.out.println(httpReq.getRequestURI().replace(httpReq.getContextPath(), ""));
-			System.out.println(XMLValidator.validate(httpReq.getRequestURI().replace(httpReq.getContextPath(), "")));
+			boolean isValid= XMLValidator.validate(httpReq.getRequestURI().replace(httpReq.getContextPath(), ""));
+			System.out.println(isValid);
+			if(!isValid){
+				((HttpServletResponse) response).sendError(500, "L'XML richiesto non rispetta la XSD");
+				return;
+			}
 			chain.doFilter(request, response);
 		}
 	}

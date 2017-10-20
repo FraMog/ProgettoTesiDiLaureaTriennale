@@ -25,8 +25,7 @@
 				<source src="museo.mp4">
 				<!-- Il video che ha un src locale è reperibile online all'indirizzo
 				https://openload.co/f/BtRz91NvmYw/museo.mp4 -->
-				<source
-					src="museo.mp4"></source>
+				<source src="museo.mp4"></source>
 				<source src="video.mp4"></source>
 				<!--  <source src="http://rmcdn.2mdn.net/Demo/vast_inspector/android.mp4"></source> -->
 				<!-- <source src="http://rmcdn.2mdn.net/Demo/vast_inspector/android.webm"></source> -->
@@ -108,7 +107,67 @@
 		<div id="adDivsContainer"></div>
 
 		<button id="fullscreenButton">[&nbsp;&nbsp;&nbsp;]</button>
+
+
+
+		<div id="OnOffContainer">
+
+			<div id="megaContainer">
+				<p id="OnOffText">Vignette descrittive:</p>
+				<div id="onoffswitchContainer">
+					<div class="onoffswitch" onchange="changing()">
+						<input type="checkbox" name="onoffswitch"
+							class="onoffswitch-checkbox" id="myonoffswitch" checked>
+						<label class="onoffswitch-label" for="myonoffswitch"> <span
+							class="onoffswitch-inner"></span> <span
+							class="onoffswitch-switch"></span>
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="console">
+			<p id="consoleFirst">Console degli Errori:</p>
+		</div>
 	</div>
+
+
+<script >
+
+
+var disabled=false;
+function changing(){
+	/*
+	alert(document.getElementsByClassName('onoffswitch-inner')[0].innerHTML);
+	
+	var element= document.getElementsByClassName('onoffswitch-inner')[0];
+	 var  theCSSprop= window.getComputedStyle(element, null).getPropertyValue("content");
+	
+	alert(theCSSprop);
+	alert(document.getElementsByClassName('onoffswitch-inner')[0].html());
+	alert(document.getElementsByClassName('onoffswitch-inner')[0].text());
+	
+
+	alert(document.getElementsByClassName('onoffswitch-inner')[0].val());
+	alert('change');
+	*/
+	
+	if(!disabled){
+		alert('false');
+
+		disabled=true;
+		$("#adDivsContainer").css("display","none");
+	}
+	
+	else{
+		alert('true');
+		disabled=false;
+		$("#adDivsContainer").css("display","block");
+	}
+	
+}
+</script>
+
 
 
 

@@ -33,6 +33,11 @@ var divContainer = document.getElementById('adContainer');
 var nonLinearStyle = document.getElementById('adContainer').style;
 //Creo un ad display container
 
+/*Variabile booleana che tiene conto di tipologia di errore 500 nella response relativa all'XMLHTTPRequest
+ * effettuata per ottenere il file XML contenente i metadati per le posizioni che devono avere i vari annunci.
+*/
+var statusCode500=false;
+
 //Recupero l'element content del video
 var videoContent = document.getElementById('contentElement');
 //Recupero il containe dell'ads e gli passo anche il content.
@@ -43,6 +48,9 @@ var adDisplayContainer =
 			videoContent);
 //Inizializazo il container
 adDisplayContainer.initialize();
+
+
+
 
 
 
@@ -89,9 +97,10 @@ xhttp.onreadystatechange = function() {
 	if (this.readyState == 4 && this.status == 200) {
 		// Typical action to be performed when the document is ready:
 		//Parsing dal documento sotto forma di stringa
-
+		alert('here');
 		parser = new DOMParser();
-		var xmlDoc = parser.parseFromString(xhttp.responseText, "text/xml");
+		//var xmlDoc = parser.parseFromString(xhttp.responseText, "text/xml");
+		var xmlDoc = xhttp.responseXML;
 		var annunciNonLineari = xmlDoc.getElementsByTagName("NonLinearAd");
 		var indice;
 		for(indice=0; indice<annunciNonLineari.length; indice++){
@@ -103,6 +112,9 @@ xhttp.onreadystatechange = function() {
 			//alert(key);
 			positions[key]= iesimoItem ;
 
+			
+			
+			
 			//Creo l'oggetto che deve avere al suo interno le dimensioni del nonlineare e la aggiungo alla struttura precedente
 			var posizioneNonLineare={};
 			iesimoItem["posizioneNonLineare"]=posizioneNonLineare;
@@ -129,8 +141,15 @@ xhttp.onreadystatechange = function() {
 
 
 		}
-		
+
 	}
+	//else
+	else if (this.readyState == 4 && this.status == 500) {
+		alert('500');
+		statusCode500=true;	
+		$('#console').append('<p>Non &egrave; stato letto l\' XML relativo alla posizione. Codice di errore ' +  xhttp.status + " " + xhttp.statusText);
+	}
+
 };
 xhttp.open("GET", "https://localhost:8443/HTTPSServer/Positioning.xml", true);
 xhttp.send();
@@ -386,6 +405,7 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 				//Ho letto una nuova VAST Response
 				numeroVASTResponsesLette++; 
 
+				if (statusCode500) return;
 				/*Parte per l'ad nonLinear*/
 
 				var ad = adEvent.getAd();
@@ -415,7 +435,9 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 				//La posizine che gli annunci lineari e non lineari devono assumere è legata all'array
 				//position
 				//alert(ad.getAdId());
-				var itemPosizioneDaAssumereNonLineareECompanion = positions[ad.getAdId()];
+				
+					var itemPosizioneDaAssumereNonLineareECompanion = positions[ad.getAdId()];
+				
 				//alert(itemPosizioneDaAssumereNonLineareECompanion);
 				var coordinateNonLineare=itemPosizioneDaAssumereNonLineareECompanion["posizioneNonLineare"];
 				//alert(coordinateNonLineare + " coordinateNonLineare");
@@ -798,9 +820,9 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 		else{
 			divContenitoreAnnuncio.style.left= 640-width + "px";
 		}
-		*/
-		
-		
+		 */
+
+
 		divContenitoreAnnuncio.style.left= desideredX + "px";
 
 		if (desideredY+height<=340){
