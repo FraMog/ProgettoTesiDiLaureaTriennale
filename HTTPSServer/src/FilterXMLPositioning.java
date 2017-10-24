@@ -1,5 +1,3 @@
-
-
 import java.io.IOException;
 
 
@@ -24,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 		//Per quali pattern effettuare il filtro
 		urlPatterns = {
 				"/Positioning.xml",	
+				"/positioningXML/Positioning.xml"
 		})
 public class FilterXMLPositioning implements Filter {
 

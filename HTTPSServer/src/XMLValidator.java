@@ -29,7 +29,9 @@ public class XMLValidator {
 			Schema schema = schemaFactory.newSchema(new StreamSource(new URL("http://localhost/HTTPSServer" +  XSD_PATH).openStream()));
 			
 			Validator validator = schema.newValidator();	
-			validator.validate(new StreamSource(new URL("http://localhost/HTTPSServer" + xmlFile).openStream()));
+			//validator.validate(new StreamSource(new URL("http://localhost/HTTPSServer" + xmlFile).openStream()));
+			validator.validate(new StreamSource(new URL("http://localhost/HTTPSServer/Positioning.xml" ).openStream()));
+
 			map.put(xmlFile, true);
 			return true;
 		} catch (SAXException | IOException e) {
@@ -40,7 +42,7 @@ public class XMLValidator {
 	}
 	
 	public static void main(String [] args){
-		System.out.println(validate("/Positioning.xml"));
-		System.out.println(validate("/Positioning.xml"));
+		System.out.println(validate("/Positioning.xml") + "risultatoMAIN");
+		System.out.println(validate("/positioningXML/Positioning.xml"));
 	}
 }

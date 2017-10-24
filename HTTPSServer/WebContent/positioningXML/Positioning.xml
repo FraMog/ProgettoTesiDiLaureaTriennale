@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root xmlns="http://localhost/HTTPSServer" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://localhost/HTTPSServer PositioningXSD.xsd">
+	<NonLinearAd>
+		<!-- 640-157.34 -->
+		<!-- <positionX>482.66</positionX> -->
+		<positionX>640</positionX>
+		<positionY>0</positionY>
+		<Id>1</Id>
+		<CompanionAds>
+			<CompanionAd>
+				<positionX>0</positionX>
+				<!-- 360-112.67 -->
+				<positionY>247.33</positionY>
+			</CompanionAd>
+		</CompanionAds>
+	</NonLinearAd>
+
+
+	<NonLinearAd>
+		<positionX>0</positionX>
+		<positionY>191</positionY>
+		<Id>2</Id>
+	</NonLinearAd>
+
+
+
+</Root>
