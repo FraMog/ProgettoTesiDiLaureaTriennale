@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 		//Per quali pattern effettuare il filtro
 		urlPatterns = {
 				"/Positioning.xml",	
-				"/positioningXML/Positioning.xml"
+				"/positioningXML/*"
 		})
 public class FilterXMLPositioning implements Filter {
 
@@ -59,8 +59,9 @@ public class FilterXMLPositioning implements Filter {
 				((HttpServletResponse) response).sendError(500, "L'XML richiesto non rispetta la XSD");
 				return;
 			}
-			chain.doFilter(request, response);
+		
 		}
+		chain.doFilter(request, response);
 	}
 
 	/**

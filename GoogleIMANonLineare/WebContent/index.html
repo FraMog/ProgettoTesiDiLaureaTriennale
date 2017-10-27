@@ -115,11 +115,11 @@
 			<div id="megaContainer">
 				<p id="OnOffText">Vignette descrittive:</p>
 				<div id="onoffswitchContainer">
-					<div class="onoffswitch" onchange="changing()">
+					<div class="onoffswitch" id="checkBoxDiv" onchange="changing()">
 						<input type="checkbox" name="onoffswitch"
-							class="onoffswitch-checkbox" id="myonoffswitch" checked>
+							class="onoffswitch-checkbox" id="myonoffswitch" checked autocomplete="off">
 						<label class="onoffswitch-label" for="myonoffswitch"> <span
-							class="onoffswitch-inner"></span> <span
+							class="onoffswitch-inner" id ="checkBoxItem"></span> <span
 							class="onoffswitch-switch"></span>
 						</label>
 					</div>
@@ -137,35 +137,24 @@
 
 var disabled=false;
 function changing(){
-	/*
-	alert(document.getElementsByClassName('onoffswitch-inner')[0].innerHTML);
 	
-	var element= document.getElementsByClassName('onoffswitch-inner')[0];
-	 var  theCSSprop= window.getComputedStyle(element, null).getPropertyValue("content");
-	
-	alert(theCSSprop);
-	alert(document.getElementsByClassName('onoffswitch-inner')[0].html());
-	alert(document.getElementsByClassName('onoffswitch-inner')[0].text());
-	
-
-	alert(document.getElementsByClassName('onoffswitch-inner')[0].val());
-	alert('change');
-	*/
 	
 	if(!disabled){
-		alert('false');
-
 		disabled=true;
+		
 		$("#adDivsContainer").css("display","none");
 	}
 	
 	else{
-		alert('true');
 		disabled=false;
 		$("#adDivsContainer").css("display","block");
 	}
 	
+	
 }
+
+
+
 </script>
 
 

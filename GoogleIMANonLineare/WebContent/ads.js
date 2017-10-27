@@ -97,9 +97,9 @@ xhttp.onreadystatechange = function() {
 	if (this.readyState == 4 && this.status == 200) {
 		// Typical action to be performed when the document is ready:
 		//Parsing dal documento sotto forma di stringa
-		alert('here');
+		
 		parser = new DOMParser();
-		//var xmlDoc = parser.parseFromString(xhttp.responseText, "text/xml");
+		
 		var xmlDoc = xhttp.responseXML;
 		var annunciNonLineari = xmlDoc.getElementsByTagName("NonLinearAd");
 		var indice;
@@ -109,7 +109,7 @@ xhttp.onreadystatechange = function() {
 			var iesimoItem = {};
 			//E la aggiungo alla map avendo come chiave l'Id
 			var key = iesimoNonLineareTag.getElementsByTagName("Id")[0].childNodes[0].nodeValue;
-			//alert(key);
+		
 			positions[key]= iesimoItem ;
 
 			
@@ -145,7 +145,7 @@ xhttp.onreadystatechange = function() {
 	}
 	//else
 	else if (this.readyState == 4 && this.status == 500) {
-		alert('500');
+		
 		statusCode500=true;	
 		$('#console').append('<p>Non &egrave; stato letto l\' XML relativo alla posizione. Codice di errore ' +  xhttp.status + " " + xhttp.statusText);
 	}
@@ -171,7 +171,6 @@ var numeroAdsRequestEffettuate=0;
 videoContent.onplay= function(){
 	//Se è la prima volta che metto in play effettuo la request per gli annunci (per la VMAP E LE VAST Responses)
 	if (numeroAdsRequestEffettuate==0){
-		//requestAds();
 		videoContent.pause();
 		numeroAdsRequestEffettuate++;
 		return;
@@ -342,7 +341,7 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 
 		//Metto in pausa quando metto in pausa il video base anche tutti i companion di tipo video
 		var currentCompanVideoTag= $("div#adDivsContainer video");
-		//////alert"currentCompanVideoTag " + currentCompanVideoTag.length);
+	
 		for (iterator=0; iterator<currentCompanVideoTag.length; iterator++){
 			currentCompanVideoTag[iterator].pause(); 
 
@@ -434,31 +433,14 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 
 				//La posizine che gli annunci lineari e non lineari devono assumere è legata all'array
 				//position
-				//alert(ad.getAdId());
+				
 				
 					var itemPosizioneDaAssumereNonLineareECompanion = positions[ad.getAdId()];
 				
-				//alert(itemPosizioneDaAssumereNonLineareECompanion);
+				
 				var coordinateNonLineare=itemPosizioneDaAssumereNonLineareECompanion["posizioneNonLineare"];
-				//alert(coordinateNonLineare + " coordinateNonLineare");
+				
 				posizionaAnnuncioAPartireDaPosInAltoASx(divNonLinear, ad.getVastMediaWidth(), ad.getVastMediaHeight(),coordinateNonLineare["positionX"], coordinateNonLineare["positionY"] , 0);
-				/*
-					switch (indiceVMAPTimeOffset){
-					case 0:{
-						posizionaAnnuncioAPartireDaPosInAltoASx(divNonLinear, ad.getVastMediaWidth(), ad.getVastMediaHeight(),640-ad.getVastMediaWidth(), 0 , 0);
-						break;
-					}
-					case 1: {
-						posizionaAnnuncioAPartireDaPosInAltoASx(divNonLinear, ad.getVastMediaWidth(), ad.getVastMediaHeight(), 0, 360-ad.getVastMediaHeight()-40, 0);
-						break;
-					}
-					//Aggiungere nuovi "case" per altre VAST Response
-					default: break;
-					}
-				 */
-
-
-
 				adIndex++;
 
 
@@ -476,8 +458,9 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 					 * verrà ignorato saranno presi tutti i companions di ogni size				 * 
 					 */
 					selectionCriteria.sizeCriteria = google.ima.CompanionAdSelectionSettings.SizeCriteria.IGNORE;
-					var companionAdsToAdd = ad.getCompanionAds(320, 180, selectionCriteria);
 					// Prendo tutti i companions, di ogni size (dove size è intesa come i valori inseriti negli attributi width ed height nel tag <companion> e non quelle effettive del contenuto multimediale), grazie alla selectionCriteria.SizeCriteria.IGNORE
+					var companionAdsToAdd = ad.getCompanionAds(320, 180, selectionCriteria);
+					
 
 
 					//Aggiungo anche gli annunci companion nell'array
@@ -500,7 +483,6 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 					//Recupero dall'item di position correntemente analizzato l'array contenente la posizione
 					//dei companion
 					var arrayPosizioniDeiCompanion=itemPosizioneDaAssumereNonLineareECompanion["arrayDellePosizioniDeiCompanion"];
-					//alert(arrayPosizioniDeiCompanion + " arrayPosizioniDeiCompanion");
 
 					//Creo nuovi div per mostrare gli annunci companion appena letti
 					for (var q=adIndex; q<ads.length;q++){
@@ -585,7 +567,6 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 	//dell'annuncio
 	//Se minSuggestedDuration!=null allora l'annuncio è un nonLineare, altrimenti è un companion
 	function modificaInnerHTMLDivAnnuncio(div , urlType, url, width, height, q, minSuggestedDuration, timeOffset){
-		//////alertannunciVMAPOffset[numeroVASTResponsesLette] + " starting time ");
 		$(div).data("urlType", urlType);
 		//Aggiungo i formati più comuni per le immagini
 		switch (urlType){
@@ -813,17 +794,17 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 			console.error("height DELL'annuncio " + annID + " non delle dimensioni giuste");
 		} 
 
-		/*
+		
 		if (desideredX+width<=640){
 			divContenitoreAnnuncio.style.left= desideredX + "px";
 		} 
 		else{
 			divContenitoreAnnuncio.style.left= 640-width + "px";
 		}
-		 */
+		
 
 
-		divContenitoreAnnuncio.style.left= desideredX + "px";
+		
 
 		if (desideredY+height<=340){
 			divContenitoreAnnuncio.style.top= desideredY + "px";
@@ -899,9 +880,9 @@ function onContentResumeRequested() {
 //Costruttore dei describer degli annunci
 
 function AdsDescriber(millisecondStartShowing,millisecondEndShowing, durata, divCompanion,firstDivChild , urlType ){
-	////alertmillisecondStartShowing + " " + adIndex);
+
 	this.millisecondStartShowing=millisecondStartShowing;
-	////////alertmillisecondEndShowing/1000 + " millisecondEndShowing");
+
 	this.millisecondEndShowing = millisecondEndShowing;
 	this.durata=durata;
 	this.divCompanion=divCompanion;
