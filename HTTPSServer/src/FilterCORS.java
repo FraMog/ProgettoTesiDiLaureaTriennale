@@ -22,16 +22,9 @@ import javax.servlet.http.*;
 					, 
 		//Per quali pattern effettuare il filtro
 		urlPatterns = { 
-				"/MyFilter",
-				"/VastTest2.xml",
-				"/VastTest3.xml",
+				"/VastXML/*",
+				"/positioningXML/*", //Nel caso in cui il client e il server non siano entrambi sullo stesso host si ha una CORS Request anche per ottenere i file della cartella positioning
 				"/VmapTest.xml",
-				"/VastTestLineare.xml",
-				"/CompanionTest.xml",
-				"/CompanionTest2.xml",
-				"/VPAIDTest.xml",
-				"/VpaidCallbackAd.js",
-				"/VPAIDTestNonLineare.xml",
 				"/VpaidNonLinear.js",
 		})
 public class FilterCORS implements Filter {

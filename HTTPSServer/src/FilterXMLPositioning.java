@@ -21,7 +21,6 @@ import javax.servlet.http.HttpServletResponse;
 		dispatcherTypes = {DispatcherType.REQUEST },
 		//Per quali pattern effettuare il filtro
 		urlPatterns = {
-				"/Positioning.xml",	
 				"/positioningXML/*"
 		})
 public class FilterXMLPositioning implements Filter {

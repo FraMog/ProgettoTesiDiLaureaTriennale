@@ -15,7 +15,7 @@
 							scalable="true" minSuggestedDuration="00:00:07">
 							<StaticResource creativeType="image/png">
 <!-- DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE -->
-<![CDATA[https://localhost:8443/HTTPSServer/ermafroditoMOD.png]]>
+<![CDATA[https://localhost:8443/HTTPSServer/images/ermafrodito.png]]>
 							</StaticResource>
 							<NonLinearClickThrough><![CDATA[http://www.jwplayer.com]]></NonLinearClickThrough>
 						</NonLinear>

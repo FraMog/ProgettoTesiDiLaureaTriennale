@@ -151,7 +151,7 @@ xhttp.onreadystatechange = function() {
 	}
 
 };
-xhttp.open("GET", "https://localhost:8443/HTTPSServer/Positioning.xml", true);
+xhttp.open("GET", "https://localhost:8443/HTTPSServer/positioningXML/Positioning.xml", true);
 xhttp.send();
 
 

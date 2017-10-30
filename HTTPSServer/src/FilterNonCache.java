@@ -25,18 +25,10 @@ import javax.servlet.http.HttpServletResponse;
 		, 
 //Per quali pattern effettuare il filtro
 		urlPatterns = { 
-				"/MyFilter",
-				"/VastTest2.xml",
-				"/VastTest3.xml",
+				"/VastXML/*",
+				"/positioningXML/*", 
 				"/VmapTest.xml",
-				"/CompanionTest.xml",
-				"/CompanionTest2.xml",
-				"/VPAIDTest.xml",
-				"/VpaidCallbackAd.js",
-				"/VPAIDTestNonLineare.xml",
 				"/VpaidNonLinear.js",
-				"/PositioningXSD.xsd",
-				"/Positioning.xml",
 		})
 
 public class FilterNonCache implements Filter {

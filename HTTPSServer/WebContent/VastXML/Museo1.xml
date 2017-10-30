@@ -2,7 +2,7 @@
 	<Ad id="1">
 		<InLine>
 			<AdSystem version="v0.2.225"><![CDATA[Acudeo Compatible]]></AdSystem>
-			<AdTitle> <![CDATA[Vast test]]></AdTitle>
+			<AdTitle> <![CDATA[Museo Archeologico di Roma 1]]></AdTitle>
 			<Impression>
    <![CDATA[ about:blank ]]>
 			</Impression>
@@ -16,7 +16,7 @@
 							scalable="true" minSuggestedDuration="00:00:09">
 							<StaticResource creativeType="image/png">
 								<!-- DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE -->
-<![CDATA[https://localhost:8443/HTTPSServer/fanciullaDiAnzioMOD.png]]>
+<![CDATA[https://localhost:8443/HTTPSServer/images/fanciullaDiAnzioMOD.png]]>
 							</StaticResource>
 							<NonLinearClickThrough><![CDATA[http://www.jwplayer.com]]></NonLinearClickThrough>
 						</NonLinear>
@@ -30,7 +30,7 @@
 						<Companion width="157.34" height="112.67" adSlotId="companion-ad1">
 							<StaticResource creativeType="image/png">
 								<!-- DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE -->
-<![CDATA[https://localhost:8443/HTTPSServer/fanciullaDiAnzio2MOD.png]]>
+<![CDATA[https://localhost:8443/HTTPSServer/images/fanciullaDiAnzio2MOD.png]]>
 							</StaticResource>
 						</Companion>
 

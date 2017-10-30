@@ -32,7 +32,7 @@
 		<vmap:AdSource id="myAds2"  allowMultipleAds="true">
 		<!-- DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE -->
 			<vmap:AdTagURI templateType="vast3">
-			  https://localhost:8443/HTTPSServer/CompanionTest.xml
+			  https://localhost:8443/HTTPSServer/VastXML/FanciullaDiAnzio.xml
 			</vmap:AdTagURI>
 			<!-- 
 			<vmap:AdTagURI templateType="vast3">
@@ -47,7 +47,7 @@
 		<vmap:AdSource id="myAds2"  allowMultipleAds="true">
 		<!-- DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE -->
 			<vmap:AdTagURI templateType="vast3">
-			  https://localhost:8443/HTTPSServer/CompanionTest2.xml
+			  https://localhost:8443/HTTPSServer/VastXML/Ermafrodito.xml
 			</vmap:AdTagURI>
 			<!-- 
 			<vmap:AdTagURI templateType="vast3">
