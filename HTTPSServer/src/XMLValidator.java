@@ -14,7 +14,7 @@ import org.xml.sax.SAXException;
 public class XMLValidator {
 
 	public static String SERVER_PATH = "http://localhost/HTTPSServer";
-	public static String XSD_PATH="/PositioningXSD.xsd";
+	public static String XSD_PATH="/positioningXML/PositioningXSD.xsd";
 	private static HashMap<String, Boolean> map = new HashMap<String,Boolean>();
 
 
@@ -33,8 +33,6 @@ public class XMLValidator {
 		    System.out.println("PATH " + url.getPath());
 		    System.out.println("FILE " + url.getFile());
 		    System.out.println("QUERY " + url.getQuery());
-		   // System.out.println("CONTENT " + url.getContent());
-		  
 		    
 			validator.validate(new StreamSource(url.openStream()));
 			
@@ -48,6 +46,6 @@ public class XMLValidator {
 	}
 	
 	public static void main(String [] args){
-		System.out.println(validate("/positioningXML/Positioning.xml") + "risultatoMAIN");
+		System.out.println(validate("/positioningXML/Positioning.xml") + " risultatoMAIN");
 	}
 }
