@@ -1,5 +1,7 @@
-<VAST version="3.0">
-	<Ad id="1">
+<VAST version="3.0" xmlns="http://localhost/HTTPSServer/VastXML" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://localhost/HTTPSServer/VastXML vast3_draft.xsd">
+	<Ad id="FanciullaDiAnzio">
 		<InLine>
 			<AdSystem version="v0.2.225"><![CDATA[Acudeo Compatible]]></AdSystem>
 			<AdTitle> <![CDATA[Fanciulla di Anzio]]></AdTitle>
@@ -12,7 +14,8 @@
 				<Creative>
 					<NonLinearAds>
 
-						<NonLinear height="112.67" width="157.34" maintainAspectRatio="true"
+						<!-- <NonLinear height="112.67" width="157.34" maintainAspectRatio="true" -->
+						<NonLinear height="113" width="158" maintainAspectRatio="true"
 							scalable="true" minSuggestedDuration="00:00:09">
 							<StaticResource creativeType="image/png">
 								<!-- DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE -->
@@ -27,7 +30,8 @@
 
 				<Creative>
 					<CompanionAds required="all">
-						<Companion width="157.34" height="112.67" adSlotId="companion-ad1">
+						<!-- <Companion width="157.34" height="112.67" adSlotId="companion-ad1"> -->
+						<Companion width="158" height="113" adSlotId="companion-ad1">
 							<StaticResource creativeType="image/png">
 								<!-- DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE -->
 <![CDATA[https://localhost:8443/HTTPSServer/images/fanciullaDiAnzio2.png]]>

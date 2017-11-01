@@ -1,35 +1,47 @@
-<vmap:VMAP version="1.0" xmlns:vmap="http://www.iab.net/videosuite/vmap">
-<!-- 
-	<vmap:AdBreak timeOffset="00:00:05" breakType="linear"
-		breakId="myBreak">
-		
-		<vmap:AdSource id="myAds" allowMultipleAds="true">
-			
-			 DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE 
-			<vmap:AdTagURI templateType="vast3">			
-			  https://localhost:8443/HTTPSServer/CompanionTest.xml
-			</vmap:AdTagURI>
-			
-			
-		
+<?xml version="1.0" encoding="UTF-8"?>
+
+<vmap:VMAP version="1.0" xmlns:vmap="http://localhost/HTTPSServer"
+ xmlns="http://localhost/HTTPSServer" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://localhost/HTTPSServer vmap.xsd">
+
+	<!-- Museo1.xml -->
+	<vmap:AdBreak timeOffset="00:00:00" breakType="nonlinear"
+		breakId="Museo1Break">
+		<vmap:AdSource id="0"  allowMultipleAds="true">
+		<!-- DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE -->
 			<vmap:AdTagURI templateType="vast3">
-			  https://localhost:8443/HTTPSServer/VastTest2.xml
+			  https://localhost:8443/HTTPSServer/VastXML/Museo1.xml
 			</vmap:AdTagURI>
-			
-		 Solo un adTagURI funziona
-			<vmap:AdTagURI templateType="vast3">
-			  https://localhost:8443/HTTPSServer/VastTest3.xml
-			</vmap:AdTagURI>
-		
-		></vmap:AdSource>
+		</vmap:AdSource>
 	</vmap:AdBreak>
-	 -->
+	
+	<!-- Museo2.xml -->
+	<vmap:AdBreak timeOffset="00:00:06" breakType="nonlinear"
+		breakId="Museo2Break">
+		<vmap:AdSource id="0"  allowMultipleAds="true">
+		<!-- DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE -->
+			<vmap:AdTagURI templateType="vast3">
+			  https://localhost:8443/HTTPSServer/VastXML/Museo2.xml
+			</vmap:AdTagURI>
+		</vmap:AdSource>
+	</vmap:AdBreak>
 	    
+	<!-- Filosofi.xml -->
+	<vmap:AdBreak timeOffset="00:00:14" breakType="nonlinear"
+		breakId="FilosofiBreak">
+		<vmap:AdSource id="0"  allowMultipleAds="true">
+		<!-- DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE -->
+			<vmap:AdTagURI templateType="vast3">
+			  https://localhost:8443/HTTPSServer/VastXML/Filosofi.xml
+			</vmap:AdTagURI>
+		</vmap:AdSource>
+	</vmap:AdBreak>
+	
 	
 	
 	<vmap:AdBreak timeOffset="00:03:39" breakType="nonlinear"
-		breakId="myBreak2">
-		<vmap:AdSource id="myAds2"  allowMultipleAds="true">
+		breakId="myBreak2Break">
+		<vmap:AdSource id="0"  allowMultipleAds="true">
 		<!-- DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE -->
 			<vmap:AdTagURI templateType="vast3">
 			  https://localhost:8443/HTTPSServer/VastXML/FanciullaDiAnzio.xml
@@ -43,8 +55,8 @@
 	</vmap:AdBreak>
 	
 	<vmap:AdBreak timeOffset="00:03:48" breakType="nonlinear"
-		breakId="myBreak2">
-		<vmap:AdSource id="myAds2"  allowMultipleAds="true">
+		breakId="myBreak2Break">
+		<vmap:AdSource id="0"  allowMultipleAds="true">
 		<!-- DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE -->
 			<vmap:AdTagURI templateType="vast3">
 			  https://localhost:8443/HTTPSServer/VastXML/Ermafrodito.xml
@@ -56,5 +68,4 @@
 			 -->
 		</vmap:AdSource>
 	</vmap:AdBreak>
-	
 </vmap:VMAP>

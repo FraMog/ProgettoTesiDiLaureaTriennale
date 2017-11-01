@@ -581,7 +581,7 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 			imageelement.height=height;
 
 			imageelement.setAttribute("src", url);
-			imageelement.setAttribute("id", "imageAd " + q);
+			imageelement.setAttribute("id", "imageAd" + q);
 
 			div.innerHTML= "";
 			div.appendChild(imageelement);
@@ -703,8 +703,7 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 			defaultelement.height=height;
 
 			defaultelement.setAttribute("src", url);
-			if(isCompanion)
-				defaultelement.setAttribute("id", "companionDefault" + q);
+			defaultelement.setAttribute("id", "defaultAd" + q);
 
 			div.innerHTML= "";
 			div.appendChild(defaultelement);

@@ -1,4 +1,6 @@
-<VAST version="3.0" >
+<VAST version="3.0" xmlns="http://localhost/HTTPSServer/VastXML" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://localhost/HTTPSServer/VastXML vast3_draft.xsd">
 <Ad id="22175">
 <InLine>
 <AdSystem version="v0.2.225"><![CDATA[Acudeo Compatible]]></AdSystem>

@@ -1,4 +1,6 @@
-<VAST version="3.0" >
+<VAST version="3.0" xmlns="http://localhost/HTTPSServer/VastXML" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://localhost/HTTPSServer/VastXML vast3_draft.xsd">
 <Ad id="22175">
 <InLine>
 <AdSystem version="v0.2.225"><![CDATA[Acudeo Compatible]]></AdSystem>
@@ -15,8 +17,8 @@
 <!-- DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE -->
 <![CDATA[https://stormapp.herokuapp.com/resource/video/360/venezia_square_360.mp4]]>
 <!-- <![CDATA[http://www.napolidavivere.it/wp-content/uploads/2017/01/Incontri-di-Archeologia-gratuiti-al-MANN-il-Museo-Archeologico-Nazionale-di-Napoli-640x360-640x360.jpg]]>    -->
-<NonLinearClickThrough><![CDATA[http://www.jwplayer.com]]></NonLinearClickThrough>
 </StaticResource>
+<NonLinearClickThrough><![CDATA[http://www.jwplayer.com]]></NonLinearClickThrough>
 </NonLinear>
    
 </NonLinearAds>

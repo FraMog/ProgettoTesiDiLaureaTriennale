@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.util.Enumeration;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 
@@ -88,14 +87,15 @@ public class FilterCORS implements Filter {
 	        	   if (origin.equals(ALLOWED_ORIGINS[i]))	           
 	        		   httpResp.setHeader("Access-Control-Allow-Origin", origin);
 	          
-	           
+	           /*
 	           Enumeration <String> headersRequest=  httpReq.getHeaderNames();
 	          
-
+	           
 	          while(headersRequest.hasMoreElements()){
 	        	  String next = headersRequest.nextElement();
-	        	//  Logger.getLogger("MyLogger2").info("Header " + next + " value " + httpReq.getHeader(next));
+	        	 Logger.getLogger("MyLogger2").info("Header " + next + " value " + httpReq.getHeader(next));
 	          }
+	          */
 	           
 	  
 	            /*Utile solo nel caso della preflight request

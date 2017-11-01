@@ -2,12 +2,45 @@
 <!DOCTYPE xml>
 <Root xmlns="http://localhost/HTTPSServer/positioningXML" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://localhost/HTTPSServer/positioningXML PositioningXSD.xsd">
+	
+	<!-- Id dell'annuncio è lo stesso indicato per l'annuncio principale nei rispettivi VAST xml -->
+	
+	
+	<!-- Museo1.xml -->
+	<NonLinearAd>
+		<!-- 640-157.34 -->
+		<!-- <positionX>482.66</positionX> -->
+		<positionX>640</positionX>
+		<positionY>360</positionY>
+		<Id>Museo1</Id>
+	</NonLinearAd>
+	
+	<!-- Museo2.xml -->
+	<NonLinearAd>
+		<!-- 640-157.34 -->
+		<!-- <positionX>482.66</positionX> -->
+		<positionX>0</positionX>
+		<positionY>0</positionY>
+		<Id>Museo2</Id>
+	</NonLinearAd>
+	
+	
+	<!-- Filosofi.xml -->
+	<NonLinearAd>
+		<!-- 640-157.34 -->
+		<!-- <positionX>482.66</positionX> -->
+		<positionX>0</positionX>
+		<positionY>0</positionY>
+		<Id>Filosofi</Id>
+	</NonLinearAd>
+	
+	
 	<NonLinearAd>
 		<!-- 640-157.34 -->
 		<!-- <positionX>482.66</positionX> -->
 		<positionX>640</positionX>
 		<positionY>0</positionY>
-		<Id>1</Id>
+		<Id>FanciullaDiAnzio</Id>
 		<CompanionAds>
 			<CompanionAd>
 				<positionX>0</positionX>
@@ -21,7 +54,7 @@
 	<NonLinearAd>
 		<positionX>0</positionX>
 		<positionY>191</positionY>
-		<Id>2</Id>
+		<Id>Ermafrodito</Id>
 	</NonLinearAd>
 
 

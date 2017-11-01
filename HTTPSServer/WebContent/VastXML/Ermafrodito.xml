@@ -1,6 +1,7 @@
-<VAST version="3.0" xmlns="http://localhost/HTTPSServer" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://localhost/HTTPSServer PositioningXSD.xsd">
-	<Ad id="2">
+<VAST version="3.0" xmlns="http://localhost/HTTPSServer/VastXML" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://localhost/HTTPSServer/VastXML vast3_draft.xsd">
+	<Ad id="Ermafrodito">
 		<InLine>
 			<AdSystem version="v0.2.225"><![CDATA[Acudeo Compatible]]></AdSystem>
 			<AdTitle> <![CDATA[Ermafrodito Dormiente]]></AdTitle>
@@ -98,6 +99,7 @@
 			</Creatives>
 		</InLine>
 	</Ad>
+
 </VAST>
 
 
