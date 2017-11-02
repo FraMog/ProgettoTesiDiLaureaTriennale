@@ -17,8 +17,6 @@
 	
 	<!-- Museo2.xml -->
 	<NonLinearAd>
-		<!-- 640-157.34 -->
-		<!-- <positionX>482.66</positionX> -->
 		<positionX>0</positionX>
 		<positionY>0</positionY>
 		<Id>Museo2</Id>
@@ -27,12 +25,116 @@
 	
 	<!-- Filosofi.xml -->
 	<NonLinearAd>
-		<!-- 640-157.34 -->
-		<!-- <positionX>482.66</positionX> -->
 		<positionX>0</positionX>
 		<positionY>0</positionY>
 		<Id>Filosofi</Id>
 	</NonLinearAd>
+	
+	<!-- Socrate.xml -->
+	<NonLinearAd>
+		<positionX>0</positionX>
+		<positionY>0</positionY>
+		<Id>Socrate</Id>
+	</NonLinearAd>
+	
+	
+	<!-- Epicuro.xml -->
+	<NonLinearAd>
+		<positionX>640</positionX>
+		<positionY>0</positionY>
+		<Id>Epicuro</Id>
+	</NonLinearAd>
+	
+	
+	<!-- RitrattoVirile.xml -->
+	<NonLinearAd>
+		<positionX>0</positionX>
+		<positionY>360</positionY>
+		<Id>RitrattoVirile</Id>
+	</NonLinearAd>
+	
+	
+	<!-- PseudoSeneca.xml -->
+	<NonLinearAd>
+		<positionX>640</positionX>
+		<positionY>360</positionY>
+		<Id>PseudoSeneca</Id>
+	</NonLinearAd>
+	
+	
+	<!-- Saffo1.xml -->
+	<NonLinearAd>
+		<positionX>640</positionX>
+		<positionY>0</positionY>
+		<Id>Saffo1</Id>
+	</NonLinearAd>
+	
+	
+	<!-- Saffo2.xml -->
+	<NonLinearAd>
+		<positionX>0</positionX>
+		<positionY>360</positionY>
+		<Id>Saffo2</Id>
+	</NonLinearAd>
+	
+	
+	<!-- AugustoPonteficeMassimo1.xml -->
+	<NonLinearAd>
+		<positionX>0</positionX>
+		<positionY>0</positionY>
+		<Id>AugustoPonteficeMassimo1</Id>
+	</NonLinearAd>
+	
+	
+	<!-- AugustoPonteficeMassimo2.xml -->
+	<NonLinearAd>
+		<positionX>640</positionX>
+		<positionY>0</positionY>
+		<Id>AugustoPonteficeMassimo2</Id>
+	</NonLinearAd>
+	
+	
+	<!-- AugustoPonteficeMassimo3.xml -->
+	<NonLinearAd>
+		<positionX>0</positionX>
+		<positionY>360</positionY>
+		<Id>AugustoPonteficeMassimo3</Id>
+	</NonLinearAd>
+	
+	
+	<!-- Vespasiano.xml -->
+	<NonLinearAd>
+		<positionX>0</positionX>
+		<positionY>0</positionY>
+		<Id>Vespasiano</Id>
+	</NonLinearAd>
+	
+	
+	<!-- Adriano.xml -->
+	<NonLinearAd>
+		<positionX>0</positionX>
+		<positionY>0</positionY>
+		<Id>Adriano</Id>
+	</NonLinearAd>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	<NonLinearAd>

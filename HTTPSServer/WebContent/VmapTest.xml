@@ -37,6 +37,141 @@
 		</vmap:AdSource>
 	</vmap:AdBreak>
 	
+	<!-- Socrate.xml -->
+	<vmap:AdBreak timeOffset="00:00:24" breakType="nonlinear"
+		breakId="SocrateBreak">
+		<vmap:AdSource id="0"  allowMultipleAds="true">
+		<!-- DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE -->
+			<vmap:AdTagURI templateType="vast3">
+			  https://localhost:8443/HTTPSServer/VastXML/Socrate.xml
+			</vmap:AdTagURI>
+		</vmap:AdSource>
+	</vmap:AdBreak>
+	
+	
+	<!-- Epicuro.xml -->
+	<vmap:AdBreak timeOffset="00:00:28" breakType="nonlinear"
+		breakId="SocrateBreak">
+		<vmap:AdSource id="0"  allowMultipleAds="true">
+		<!-- DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE -->
+			<vmap:AdTagURI templateType="vast3">
+			  https://localhost:8443/HTTPSServer/VastXML/Epicuro.xml
+			</vmap:AdTagURI>
+		</vmap:AdSource>
+	</vmap:AdBreak>
+	
+	
+	<!-- RitrattoVirile.xml -->
+	<vmap:AdBreak timeOffset="00:00:32" breakType="nonlinear"
+		breakId="RitrattoVirileBreak">
+		<vmap:AdSource id="0"  allowMultipleAds="true">
+		<!-- DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE -->
+			<vmap:AdTagURI templateType="vast3">
+			  https://localhost:8443/HTTPSServer/VastXML/RitrattoVirile.xml
+			</vmap:AdTagURI>
+		</vmap:AdSource>
+	</vmap:AdBreak>
+	
+	
+	<!-- PseudoSeneca.xml -->
+	<vmap:AdBreak timeOffset="00:00:36" breakType="nonlinear"
+		breakId="PseudoSenecaBreak">
+		<vmap:AdSource id="0"  allowMultipleAds="true">
+		<!-- DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE -->
+			<vmap:AdTagURI templateType="vast3">
+			  https://localhost:8443/HTTPSServer/VastXML/PseudoSeneca.xml
+			</vmap:AdTagURI>
+		</vmap:AdSource>
+	</vmap:AdBreak>
+	
+	
+	
+	<!-- Saffo1.xml -->
+	<vmap:AdBreak timeOffset="00:00:40" breakType="nonlinear"
+		breakId="Saffo1Break">
+		<vmap:AdSource id="0"  allowMultipleAds="true">
+		<!-- DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE -->
+			<vmap:AdTagURI templateType="vast3">
+			  https://localhost:8443/HTTPSServer/VastXML/Saffo1.xml
+			</vmap:AdTagURI>
+		</vmap:AdSource>
+	</vmap:AdBreak>
+	
+	
+	<!-- Saffo2.xml -->
+	<vmap:AdBreak timeOffset="00:00:40.300" breakType="nonlinear"
+		breakId="Saffo2Break">
+		<vmap:AdSource id="0"  allowMultipleAds="true">
+		<!-- DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE -->
+			<vmap:AdTagURI templateType="vast3">
+			  https://localhost:8443/HTTPSServer/VastXML/Saffo2.xml
+			</vmap:AdTagURI>
+		</vmap:AdSource>
+	</vmap:AdBreak>
+	
+	
+		
+	<!-- AugustoPonteficeMassimo1.xml -->
+	<vmap:AdBreak timeOffset="00:00:44" breakType="nonlinear"
+		breakId="AugustoPonteficeMassimo1Break">
+		<vmap:AdSource id="0"  allowMultipleAds="true">
+		<!-- DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE -->
+			<vmap:AdTagURI templateType="vast3">
+			  https://localhost:8443/HTTPSServer/VastXML/AugustoPonteficeMassimo1.xml
+			</vmap:AdTagURI>
+		</vmap:AdSource>
+	</vmap:AdBreak>
+	
+	
+	<!-- AugustoPonteficeMassimo2.xml -->
+	<vmap:AdBreak timeOffset="00:00:47" breakType="nonlinear"
+		breakId="AugustoPonteficeMassimo2Break">
+		<vmap:AdSource id="0"  allowMultipleAds="true">
+		<!-- DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE -->
+			<vmap:AdTagURI templateType="vast3">
+			  https://localhost:8443/HTTPSServer/VastXML/AugustoPonteficeMassimo2.xml
+			</vmap:AdTagURI>
+		</vmap:AdSource>
+	</vmap:AdBreak>
+	
+	
+	<!-- AugustoPonteficeMassimo2.xml -->
+	<vmap:AdBreak timeOffset="00:00:50" breakType="nonlinear"
+		breakId="AugustoPonteficeMassimo3Break">
+		<vmap:AdSource id="0"  allowMultipleAds="true">
+		<!-- DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE -->
+			<vmap:AdTagURI templateType="vast3">
+			  https://localhost:8443/HTTPSServer/VastXML/AugustoPonteficeMassimo3.xml
+			</vmap:AdTagURI>
+		</vmap:AdSource>
+	</vmap:AdBreak>
+	
+	
+	<!-- Vespasiano.xml -->
+	<vmap:AdBreak timeOffset="00:00:55" breakType="nonlinear"
+		breakId="VespasianoBreak">
+		<vmap:AdSource id="0"  allowMultipleAds="true">
+		<!-- DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE -->
+			<vmap:AdTagURI templateType="vast3">
+			  https://localhost:8443/HTTPSServer/VastXML/Vespasiano.xml
+			</vmap:AdTagURI>
+		</vmap:AdSource>
+	</vmap:AdBreak>
+	
+	
+	
+	<!-- Adriano.xml -->
+	<vmap:AdBreak timeOffset="00:00:59" breakType="nonlinear"
+		breakId="AdrianoBreak">
+		<vmap:AdSource id="0"  allowMultipleAds="true">
+		<!-- DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE -->
+			<vmap:AdTagURI templateType="vast3">
+			  https://localhost:8443/HTTPSServer/VastXML/Adriano.xml
+			</vmap:AdTagURI>
+		</vmap:AdSource>
+	</vmap:AdBreak>
+	
+
 	
 	
 	<vmap:AdBreak timeOffset="00:03:39" breakType="nonlinear"

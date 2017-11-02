@@ -1,10 +1,10 @@
 <VAST version="3.0" xmlns="http://localhost/HTTPSServer/VastXML" 
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://localhost/HTTPSServer/VastXML vast3_draft.xsd">
-	<Ad id="Socrate">
+	<Ad id="Saffo1">
 		<InLine>
 			<AdSystem version="v0.2.225"><![CDATA[Acudeo Compatible]]></AdSystem>
-			<AdTitle> <![CDATA[Socrate]]></AdTitle>
+			<AdTitle> <![CDATA[Saffo1]]></AdTitle>
 			<Impression>
    <![CDATA[ about:blank ]]>
 			</Impression>
@@ -14,11 +14,11 @@ xsi:schemaLocation="http://localhost/HTTPSServer/VastXML vast3_draft.xsd">
 				<Creative>
 					<NonLinearAds>
 
-						<NonLinear height="148" width="206" maintainAspectRatio="true"
+						<NonLinear height="169" width="236" maintainAspectRatio="true"
 							scalable="true" minSuggestedDuration="00:00:03">
 							<StaticResource creativeType="image/png">
 <!-- DEVE ESSERE HTTPS ALTRIMENTI GOOGLE IMA SDK NON LO LEGGE -->
-<![CDATA[https://localhost:8443/HTTPSServer/images/Socrate.png]]>
+<![CDATA[https://localhost:8443/HTTPSServer/images/RitrattodiSaffo.png]]>
 							</StaticResource>
 							<NonLinearClickThrough><![CDATA[http://www.jwplayer.com]]></NonLinearClickThrough>
 						</NonLinear>

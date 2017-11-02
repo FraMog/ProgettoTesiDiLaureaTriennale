@@ -169,9 +169,16 @@ adsRequest.nonLinearAdSlotHeight = NON_LINEAR_SLOT_HEIGHT;
 //Variabile aggiunta per essere sicuri che venga effettuata un unica adsRequest all'TagUri indicato (per non mostrare più volte lo stesso annuncio)
 var numeroAdsRequestEffettuate=0;
 videoContent.onplay= function(){
+	
+	if (!disabled){
+		$("#adDivsContainer").css("display","block");
+	}
+	
+	
 	//Se è la prima volta che metto in play effettuo la request per gli annunci (per la VMAP E LE VAST Responses)
 	if (numeroAdsRequestEffettuate==0){
 		videoContent.pause();
+		$("#adDivsContainer").css("display","none");
 		numeroAdsRequestEffettuate++;
 		return;
 	}else {
