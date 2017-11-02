@@ -133,17 +133,17 @@
 
 <script >
 
-
+/* Variabile che tiene conto della scelta binaria tra mostrare gli annunci oppure no. Cambia in base al click dell'
+ * utente su #checkBoxDiv.
+ */
 var disabled=false;
 function changing(){
-	
-	
+	//Se passo da ON ad OFF
 	if(!disabled){
 		disabled=true;
-		
 		$("#adDivsContainer").css("display","none");
 	}
-	
+	//Se passo da OFF ad ON
 	else{
 		disabled=false;
 		$("#adDivsContainer").css("display","block");
@@ -171,8 +171,9 @@ function changing(){
 	<script type="text/javascript" src="fullscreen.js"></script>
 	
 	<script type="text/javascript">
+	//Rallento la velocità di riproduzione del video player a 1/2 del normale.
 	var vid = document.getElementById("contentElement");
-	// vid.playbackRate = 0.5;
+	 vid.playbackRate = 0.5;
 	
 	</script>
 </body>

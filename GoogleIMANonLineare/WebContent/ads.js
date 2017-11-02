@@ -1,7 +1,23 @@
+/*Variabili che tengono conto delle dimensioni che l'adSlot di Google IMA SDK debba avere sia nel caso in cui gli
+ * annunci che si debbano ricevere siano lineari sia che siano nonLineari. Questi valori vengono usati nell'
+ * istruzioni offerte delle API di IMA:
+ * adsRequest.linearAdSlotWidth = LINEAR_SLOT_WIDTH;
+	adsRequest.linearAdSlotHeight = LINEAR_SLOT_HEIGHT;
+	adsRequest.nonLinearAdSlotWidth =  NON_LINEAR_SLOT_WIDTH;
+	adsRequest.nonLinearAdSlotHeight = NON_LINEAR_SLOT_HEIGHT;
+ *  e
+ *  adsManager.init (NON_LINEAR_SLOT_WIDTH, NON_LINEAR_SLOT_HEIGHT, google.ima.ViewMode.NORMAL);
+ *  
+ *  che servono ad indicare ad SDK le dimensioni da avere per l'adSlot Id.
+ * 
+ * */
+
 var LINEAR_SLOT_WIDTH = 640;
 var LINEAR_SLOT_HEIGHT= 360;
 var NON_LINEAR_SLOT_WIDTH = 400;
 var NON_LINEAR_SLOT_HEIGHT= 200;
+
+
 //Variabile che tiene conto del numero di annunci presenti
 var adIndex=0;
 /*Variabile che tiene conto di quante volta i companion index siano stati letti con successo tra VAST responses diverse
@@ -15,6 +31,7 @@ var ads = [];
  * che mi saranno utili per registrare gli "starting time" di ogni annuncio
  */
 var annunciVMAPOffset;
+//Variabile che contiene l'adsManager, oggetto offerto dalle API di IMA per gestire gli annunci.
 var adsManager;
 
 /*Array che presenta un item per ogni NonLinearAd: ogni chiave sarà l'Id del tag <Id> (che sarà lo stesso valore del rispettivo <Ad>
@@ -143,9 +160,14 @@ xhttp.onreadystatechange = function() {
 		}
 
 	}
-	//else
+	/*
+	 * Il server è incaricato di inviare un documento XML per la posizione che rispetta la XSD relativa. 
+	 * Prima di sottomettere il file il server effettua il controllo della validità dell'XML tramite la XSD,
+	 * qualora questo abbia esito negativo non invierà il documento, inviando come status code della HTTP Response
+	 * il valore 500.
+	 */
+	
 	else if (this.readyState == 4 && this.status == 500) {
-		
 		statusCode500=true;	
 		$('#console').append('<p>Non &egrave; stato letto l\' XML relativo alla posizione. Codice di errore ' +  xhttp.status + " " + xhttp.statusText);
 	}
@@ -169,7 +191,10 @@ adsRequest.nonLinearAdSlotHeight = NON_LINEAR_SLOT_HEIGHT;
 //Variabile aggiunta per essere sicuri che venga effettuata un unica adsRequest all'TagUri indicato (per non mostrare più volte lo stesso annuncio)
 var numeroAdsRequestEffettuate=0;
 videoContent.onplay= function(){
-	
+	/*
+	 * Quando il video parte devo mostrare anche anche gli annunci nel caso in cui non siano disabilitati (tramite
+	 * controllo della variabile disabled definita in index.html).
+	 */
 	if (!disabled){
 		$("#adDivsContainer").css("display","block");
 	}
@@ -279,10 +304,16 @@ solo, che avendo cambiato la posizione nel video base, devo cambiare anche quell
  */
 videoContent.onseeked = function() {
 	var index =0;
-	//Seleziono solo gli ads companion che sono gia iniziati
+	//Seleziono solo gli ads che sono gia iniziati
 	while(index < adsDescribers.length && adsDescribers[index].getMillisecondStartShowing()<=(videoContent.currentTime * 1000)){
 		var urlType = adsDescribers[index].getUrlType();
 		if(urlType=="mp3" || urlType=="mp4" || urlType=="ogg" || urlType=="mp3" || urlType=="wav"){
+			/*
+			 * Se il video non è ancora terminato, devo adattare il momento di riproduzione del contenuto di tipo video o audio
+			 * con il corretto valore: il corretto valore si calcola stabilendo la differenza tra il currentTime di riproduzione
+			 * del video base (che essendosi appena spostati all'interno del flusso di riproduzione del video base e avendo attivato
+			 * l'evento onseeked è appena cambiato) e il MillisecondStartShowing dell'annuncio di tipo audio o video.
+			 */
 			if(adsDescribers[index].getMillisecondEndShowing()>= (videoContent.currentTime * 1000)){
 				adsDescribers[index].getFirstDivChild().currentTime = ((videoContent.currentTime * 1000) - adsDescribers[index].getMillisecondStartShowing())/1000;
 				$(adsDescribers[index].getDivCompanion()).css("display","block");
@@ -326,6 +357,7 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 
 	adsManager = adsManagerLoadedEvent.getAdsManager(videoContent,adsRenderingSettings);
 
+	//Prendo i timeOffset di tutti gli adBreak del VMAP letto e li salvo nell'array annunciVMAPOffset
 	annunciVMAPOffset= adsManager.getCuePoints();
 
 	/*
@@ -338,7 +370,7 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 		//mentre per annunci lineari va cancellata (meglio resa commento)
 		adsManager.pause();
 
-//		Se metto in pausa il video base devo mettere in pausa anche tutti gli annunci di tipo audio o video
+		//Se metto in pausa il video base devo mettere in pausa anche tutti gli annunci di tipo audio o video
 		var iterator;
 		//Metto in pausa quando metto in pausa il video base anche tutti i companion di tipo audio
 		var currentCompanionAudioTag= $("div#adDivsContainer audio");
@@ -353,14 +385,7 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 			currentCompanVideoTag[iterator].pause(); 
 
 		}
-
-
-
-
 	};
-
-
-
 
 
 	//Listeners di default per gli eventi
@@ -410,7 +435,10 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 
 				//Ho letto una nuova VAST Response
 				numeroVASTResponsesLette++; 
-
+				
+				/*Se il file di positioning non è stato letto con successo, non sapendo dove mostrare gli annunci
+				* non li mostro.
+				*/
 				if (statusCode500) return;
 				/*Parte per l'ad nonLinear*/
 
@@ -425,7 +453,7 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 				var urlNonLinear= ad.getMediaUrl();
 
 				var urlTypeNonLinear = urlNonLinear.substr(urlNonLinear.lastIndexOf('.') + 1);
-
+				
 				modificaInnerHTMLDivAnnuncio(divNonLinear,  urlTypeNonLinear, urlNonLinear, ad.getWidth(), ad.getHeight(), adIndex, ad.getMinSuggestedDuration()*1000, ad.getAdPodInfo().getTimeOffset());
 
 
@@ -444,9 +472,12 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 				
 					var itemPosizioneDaAssumereNonLineareECompanion = positions[ad.getAdId()];
 				
-				
+				/* 
+				* Recupero le coordinate dell'annuncio principale e dei relativi eventuali companion conservate 
+				* nell'apposito array
+				*/
 				var coordinateNonLineare=itemPosizioneDaAssumereNonLineareECompanion["posizioneNonLineare"];
-				
+				//Posiziono l'annuncio nella posizione indicata.
 				posizionaAnnuncioAPartireDaPosInAltoASx(divNonLinear, ad.getVastMediaWidth(), ad.getVastMediaHeight(),coordinateNonLineare["positionX"], coordinateNonLineare["positionY"] , 0);
 				adIndex++;
 

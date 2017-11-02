@@ -1,6 +1,4 @@
 import java.io.IOException;
-
-import javax.ejb.EJB;
 import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -24,6 +22,12 @@ import javax.servlet.http.HttpServletResponse;
 				"/positioningXML/*",
 			
 		})
+/**
+ * Classe che intercetta tutte le request per gli elementi contenuti nella directory /positioningXML
+ * effettuando la validazione di tali documenti usando la classe XMLValidator 
+ * @author Francesco
+ *
+ */
 public class FilterXMLPositioning implements Filter {
 	
 
@@ -56,18 +60,20 @@ public class FilterXMLPositioning implements Filter {
 		*dove si trovano i VAST XML da filtrare, aggiungo questo controllo
 		*/
 		if(httpReq.getRequestURI().endsWith("xsd") || httpReq.getRequestURI().contains(".xsd")){
-			System.out.println("exiting");
 			return;
 		}
 		
 		
-		System.out.println(NUMEROREQUEST++);
-
+		/*Se l'user agent è Java vuoi dire che la request non è proveniente da un browser ma dall'applicazione stessa.
+		 * Ciò avviene nel metodo XMLValidator.validate, specificatamente nell'istruzione 
+		 * 	URL url = new URL("http://localhost/HTTPSServer" + xmlFile);
+		 * nella quale viene effettuata una nuova HTTP Request, in questo caso dall'applicazione Java.
+		 * In tal caso non va effettuato nuovamente la validazione.
+		 */
 		if(!httpReq.getHeader("user-agent").startsWith("Java")){
 
-			System.out.println(httpReq.getRequestURI().replace(httpReq.getContextPath(), ""));
 			boolean isValid= XMLValidator.validate(XMLValidator.POSITIONING_XSD ,httpReq.getRequestURI().replace(httpReq.getContextPath(), ""));
-			System.out.println(isValid);
+			//Se la validazione ha come risultato false invio una HTTP Response di Errore.
 			if(!isValid){
 				((HttpServletResponse) response).sendError(500, "L'XML richiesto non rispetta la XSD");
 				return;
