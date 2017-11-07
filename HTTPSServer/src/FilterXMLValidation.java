@@ -84,6 +84,7 @@ public class FilterXMLValidation implements Filter {
 			}else if(httpReq.getRequestURI().contains("/VmapTest.xml")){
 				isValid = XMLValidator.validate(XMLValidator.VMAP_XML_XSD ,httpReq.getRequestURI().replace(httpReq.getContextPath(), ""));			
 			}
+			Logger.getLogger("myLogger").info("isValid= " + isValid);
 			//Se la validazione ha come risultato false invio una HTTP Response di Errore.
 			if(!isValid){
 				((HttpServletResponse) response).sendError(500, "L'XML richiesto non rispetta la XSD");

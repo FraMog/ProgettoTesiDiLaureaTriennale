@@ -89,6 +89,8 @@ adsLoader.addEventListener(
 
 
 function onAdError(adErrorEvent) {
+	$('#console').append('<p>Errore nella lettura di uno o pi&#249; annunci. Messaggio di errore: ' + adErrorEvent.getError().getMessage() + '</p>');
+	$('#console').append('<p>Si pu&#242; procedere alla visualizzazione del video senza vignette didascaliche, oppure riprovare pi&#249; tardi.</p>');
 	// Distruggo l'AdsManager
 	adsManager.destroy();
 }
@@ -169,7 +171,7 @@ xhttp.onreadystatechange = function() {
 	
 	else if (this.readyState == 4 && this.status == 500) {
 		statusCode500=true;	
-		$('#console').append('<p>Non &egrave; stato letto l\' XML relativo alla posizione. Codice di errore ' +  xhttp.status + " " + xhttp.statusText);
+		$('#console').append('<p>Non &egrave; stato letto l\' XML relativo alla posizione. Codice di errore ' +  xhttp.status + " " + xhttp.statusText + "</p>");
 	}
 
 };
