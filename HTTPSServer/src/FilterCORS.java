@@ -40,7 +40,7 @@ public class FilterCORS implements Filter {
    /*Elenco delle origin che hanno il permesso di accedere alle risorse per le quali questo filtro è attivo
    * di una CORS Request.
    */
-   public static final String [] ALLOWED_ORIGINS= {"http://imasdk.googleapis.com" , "https://imasdk.googleapis.com", "https://www.tcp.googlesyndication.com" };
+   public static final String [] ALLOWED_ORIGINS= {"http://imasdk.googleapis.com" , "https://imasdk.googleapis.com", "https://www.tcp.googlesyndication.com", "http://localhost", "http://localhost:8443" };
     /**
      * Default constructor. 
      */
@@ -85,24 +85,28 @@ public class FilterCORS implements Filter {
 	        	
 	        	
 	           for (int i=0; i< ALLOWED_ORIGINS.length; i++)
-	        	   if (origin.equals(ALLOWED_ORIGINS[i]))	           
+	        	   if (origin.equalsIgnoreCase(ALLOWED_ORIGINS[i]))	           
 	        		   httpResp.setHeader("Access-Control-Allow-Origin", origin);
 	         
 	            // Allow caching cross-domain permission
 	            httpResp.setHeader("Access-Control-Max-Age", "3600");
+	            if(httpReq.getHeader("user-agent").contains("Chrome")){
+	            	httpResp.setHeader("Access-Control-Allow-Credentials", "true");
+	            }
 	        }
+	         /*
 	        // Pass request down the chain, except for OPTIONS
 	        if (!"OPTIONS".equalsIgnoreCase(httpReq.getMethod())) {
 	        	chain.doFilter(request, response);
-	        }
-		
+	        }*/
+	         chain.doFilter(request, response);
 	}
 
 	/**
 	 * @see Filter#init(FilterConfig)
 	 */
 	public void init(FilterConfig fConfig) throws ServletException {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated methoad stub
 	}
 
 	public static String VALID_METHODS = "DELETE, HEAD, GET, OPTIONS, POST, PUT";

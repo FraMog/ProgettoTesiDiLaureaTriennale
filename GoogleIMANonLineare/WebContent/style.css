@@ -46,7 +46,7 @@ supports (-ms-ime-align:auto ) { #videoPlayerDefaultFullScreenButtonCover
 
 }
 #content {
-	z-index: 0;
+	z-index: 50;
 	position: absolute;
 	/* top: 0px;
   left: 0px;*/
@@ -55,8 +55,9 @@ supports (-ms-ime-align:auto ) { #videoPlayerDefaultFullScreenButtonCover
 }
 
 #adContainer {
+	z-index: 0;
 	position: absolute;
-	display: none;
+	display: block;
 	/*padding-left:440px;
 	padding-left:550px;*/
 	/*padding-top:50px;*/

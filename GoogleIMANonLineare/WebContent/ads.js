@@ -334,7 +334,7 @@ videoContent.onseeked = function() {
 function requestAds() {
 	//AdsRequest definita sopra, sono gli annunci da richiedere
 	adsLoader.requestAds(adsRequest);
-
+	console.error('requestingADS');
 }
 
 
@@ -345,6 +345,7 @@ function requestAds() {
 
 //In caso di successo di caricamento del video
 function onAdsManagerLoaded(adsManagerLoadedEvent) {
+	console.error('adsManagerLoaded');
 //	================================================================================================//
 //	================================================================================================//
 //	Parte per modificare le impostazioni di rendering degli ads di default 	 
@@ -430,7 +431,7 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 	adsManager.addEventListener (
 			google.ima.AdEvent.Type.STARTED,
 			function(adEvent){
-
+				console.error('adStarted');
 				// Disabilito i controls nell'iframe dell'annuncio 
 				//Se lo faccio disabilito anche il non-linearClickThrough
 				$("iframe").css("pointer-events", "none");
@@ -445,15 +446,16 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 				/*Parte per l'ad nonLinear*/
 
 				var ad = adEvent.getAd();
+				console.error('adGot');
 				ads[adIndex] = ad;
 				//Creo un nuovo div per mostrare l'annuncio nonLineare appena letto
 				var divNonLinear = document.createElement('div');
 				divNonLinear.setAttribute("id", 'companion-ad' + adIndex);
 				divNonLinear.setAttribute("class", 'companionsClass' );
 				document.getElementById("adDivsContainer").appendChild(divNonLinear);
-
+				console.error('adGot2');
 				var urlNonLinear= ad.getMediaUrl();
-
+				console.error('adGot3');
 				var urlTypeNonLinear = urlNonLinear.substr(urlNonLinear.lastIndexOf('.') + 1);
 				
 				modificaInnerHTMLDivAnnuncio(divNonLinear,  urlTypeNonLinear, urlNonLinear, ad.getWidth(), ad.getHeight(), adIndex, ad.getMinSuggestedDuration()*1000, ad.getAdPodInfo().getTimeOffset());
@@ -473,7 +475,7 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 				
 				
 					var itemPosizioneDaAssumereNonLineareECompanion = positions[ad.getAdId()];
-				
+					console.error('afterPos');
 				/* 
 				* Recupero le coordinate dell'annuncio principale e dei relativi eventuali companion conservate 
 				* nell'apposito array
@@ -814,7 +816,7 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 			google.ima.AdEvent.Type.LOADED,
 			function(evento){
 				divContainer.style= nonLinearStyle;
-
+				console.error('adLoaded');
 			});  
 
 
@@ -901,6 +903,7 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 	} catch (adError) {
 		// Errore che può essere lanciato se vi è un problema nella VAST response. Usando le API di IMA per la classe
 		//adError si otterranno informazioni quali il tipo di errore.
+		console.error(adError.getMessage());
 	}
 }
 
@@ -952,6 +955,8 @@ function AdsDescriber(millisecondStartShowing,millisecondEndShowing, durata, div
 
 
 }
+console.error('ciao2');
 
 
 requestAds();
+

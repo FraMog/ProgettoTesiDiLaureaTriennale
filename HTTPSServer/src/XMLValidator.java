@@ -22,6 +22,7 @@ public class XMLValidator {
 	
 	/*Variabile nella quale vengono registrati i valori dei risultati della validazione di una file tramite xsd
 	* (la chiave String = url della XSD + URL del file), e il valore booleano della validazione.
+	  Sono sicuro che questa map sia unica perché è static, dunque condivisa tra tutte le eventuali instanze di XMLValidator.
 	*/
 	private static final HashMap<String, Boolean> map = new HashMap<String,Boolean>();
 
@@ -38,12 +39,30 @@ public class XMLValidator {
 		/* Se il documento è gia stato validato precedentmente, ad esempio tramite filtro di una precedente
 		non ha senso validarlo nuovamente. Tutto ciò viene effettuato per velocizzare le operazioni.
 		*/
+		
+		/*Da modificare con gli Interners. Prima cera Synchronized XMLValidator.class ma non va bene perché
+		 * cosi blocco anche sinchronizzazioni per coppie di xsdDaUsare + xmlFile differenti tra di loro 
+		 * rallentando troppo le operazioni. Effettuerei in generale UNA SOLA validazione alla volta, troppo lento.
+		 * Quello che voglio è invece avere un blocco sincronizzato rispetto alla coppia di valori xsdDaUsare + xmlFile
+		 * in modo tale che due thread si blocchino a vicenda solo se stanno effettuando ESATTAMENTE lo stesso calcolo.
+		 * Si potrebbe usare synchronized (xsdDaUsare  + xmlFile) però questo approccio, come spiegato qui da Bart van Heukelom https://stackoverflow.com/questions/7555826/synchronize-on-value-not-object, non funziona.
+		 * Infatti il sincronized, per sua stessa definizione, blocca secondo ISTANZA dell'oggetto, e NON il suo VALORE.
+		 * Ricordandoci poi che in Java per le stringhe, a differenza degli altri oggetti nel quale è il programmatore tramite
+		 * l'operatore new a definire quando vada creata una nuova instanza, mentre per esse la creazione/spostamento nella garbage
+		 * è gestito totalmente dalla JVM, si crea un casino tramendo. A volte, per thread differenti (il filtro che le invoca è unico 
+		 * e può essere eseguito in parallelo da più thread per più request parallele) si possono creare nuove stringhe , altre no (i thread condividono la stessa memoria, le stesse variabili di istanza, 
+		 * dunque queste stringhe, definite all'interno del metodo, non dovrebbero essere condivise da più thread, però la gestione delle stringhe in Java è del tutto particolare...).	
+		 * Dunque a volte potrei bloccare l'esecuzione di operazioni identiche, ALTRE NO. Una soluzione è usare 
+		 * https://google.github.io/guava/releases/19.0/api/docs/com/google/common/collect/Interners.html 
+		 */
 		if(map.get(xsdDaUsare + xmlFile)!=null) {
 			return map.get(xsdDaUsare + xmlFile); 	
 		}
-
+		
+		//Uso l'intern della stringa concatenante la xsdDaUsare e l'XMLFile per sincronizzare.
+		String intern= (xsdDaUsare  + xmlFile).intern();
 		//Se l'XML file non è stato ancora controllato allora solo il primo thread che tanta di validarlo deve effettuare il controllo, gli altri no.
-		synchronized (XMLValidator.class) {
+		synchronized (intern) {
 			/*
 			 * Altrimenti, se il file non è stato ancora validato tramite la xsd, effettuo la validazione,
 			 *  concedendo l'accesso in maniera mutualmente esclusiva ai vari thread che potrebbero generarsi tra le varie Request ricevute.

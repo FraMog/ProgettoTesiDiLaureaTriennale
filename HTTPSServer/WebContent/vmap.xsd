@@ -146,7 +146,7 @@ attributeFormDefault="unqualified" elementFormDefault="qualified" version="1.0">
   </xs:complexType>
   <xs:complexType name="VASTAdData_type">
     <xs:sequence>
-      <xs:element ref="vast:VAST" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="VAST" minOccurs="1" maxOccurs="1"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="CustomAdData_type">
