@@ -255,9 +255,9 @@ videoContent.ontimeupdate = function() {
 
 	//Seleziono solo gli annunci che sono gia iniziati
 	while(index < adsDescribers.length && adsDescribers[index].getMillisecondStartShowing()<=(videoContent.currentTime * 1000)){
+		var urlType = adsDescribers[index].getUrlType();
 		//Se non è ancora finito lo mostro
 		if(adsDescribers[index].getMillisecondEndShowing()>= (videoContent.currentTime * 1000)){
-			var urlType = adsDescribers[index].getUrlType();
 			//Se è un annuncio di tipo audio o video lo mostro
 			if(urlType=="mp3" || urlType=="mp4" || urlType=="ogg" || urlType=="mp3" || urlType=="wav"){
 				/*
@@ -279,12 +279,19 @@ videoContent.ontimeupdate = function() {
 
 			}else {//Altrimenti, se non è un annuncio di tipo audio o video, lo mostro semplicemente
 				$(adsDescribers[index].getDivCompanion()).css('display', 'block');
+				
 			}
 
 		}
 		//Quelli che sono iniziati e gia finiti, li nascondo
 		else {
+			var urlType = adsDescribers[index].getUrlType();
 			$(adsDescribers[index].getDivCompanion()).css('display', 'none');
+			//Se è un annuncio audio o video lo metto in pausa
+			if(urlType=="mp3" || urlType=="mp4" || urlType=="ogg" || urlType=="mp3" || urlType=="wav"){
+				adsDescribers[index].getFirstDivChild().pause();
+			}
+			
 		}
 
 		index++;
@@ -292,7 +299,12 @@ videoContent.ontimeupdate = function() {
 
 	// Quelli non ancora iniziati li nascondo
 	while(index < adsDescribers.length){
+		var urlType = adsDescribers[index].getUrlType();
 		$(adsDescribers[index].getDivCompanion()).css('display', 'none');
+		//Se è un annuncio audio o video lo metto in pausa
+		if(urlType=="mp3" || urlType=="mp4" || urlType=="ogg"  || urlType=="wav"){
+			adsDescribers[index].getFirstDivChild().pause();
+		}
 		index++;
 	}
 };
@@ -309,7 +321,7 @@ videoContent.onseeked = function() {
 	//Seleziono solo gli ads che sono gia iniziati
 	while(index < adsDescribers.length && adsDescribers[index].getMillisecondStartShowing()<=(videoContent.currentTime * 1000)){
 		var urlType = adsDescribers[index].getUrlType();
-		if(urlType=="mp3" || urlType=="mp4" || urlType=="ogg" || urlType=="mp3" || urlType=="wav"){
+		if(urlType=="mp3" || urlType=="mp4" || urlType=="ogg"  || urlType=="wav"){
 			/*
 			 * Se il video non è ancora terminato, devo adattare il momento di riproduzione del contenuto di tipo video o audio
 			 * con il corretto valore: il corretto valore si calcola stabilendo la differenza tra il currentTime di riproduzione
@@ -450,8 +462,8 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 				ads[adIndex] = ad;
 				//Creo un nuovo div per mostrare l'annuncio nonLineare appena letto
 				var divNonLinear = document.createElement('div');
-				divNonLinear.setAttribute("id", 'companion-ad' + adIndex);
-				divNonLinear.setAttribute("class", 'companionsClass' );
+				divNonLinear.setAttribute("id", 'adId' + adIndex);
+				divNonLinear.setAttribute("class", 'nonLinearClass' );
 				document.getElementById("adDivsContainer").appendChild(divNonLinear);
 				console.error('adGot2');
 				var urlNonLinear= ad.getMediaUrl();
@@ -506,10 +518,10 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 
 
 					//Aggiungo anche gli annunci companion nell'array
-					var indexIiziaAdAggiungereAd = adIndex;
+					var indexIniziaAdAggiungereAd = adIndex;
 					for (var x=0; x<companionAdsToAdd.length; x++){
-						ads[indexIiziaAdAggiungereAd]=companionAdsToAdd[x];
-						indexIiziaAdAggiungereAd++;
+						ads[indexIniziaAdAggiungereAd]=companionAdsToAdd[x];
+						indexIniziaAdAggiungereAd++;
 					}
 
 
@@ -531,7 +543,7 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 
 						var companionAd = ads[q];
 						var divCompanion = document.createElement('div');
-						divCompanion.setAttribute("id", 'companion-ad' + adIndex);
+						divCompanion.setAttribute("id", 'adId' + adIndex);
 						divCompanion.setAttribute("class", 'companionsClass' );
 						document.getElementById("adDivsContainer").appendChild(divCompanion);
 
@@ -607,7 +619,6 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 	//Funzione che uso per togliere da mezzo l'HTML creato automaticamente da IMA e sostituirlo con uno mio 
 	//customizzato in modo da poter aggiungere eventi come la fine di un annuncio a seconda del tipo di file 
 	//dell'annuncio
-	//Se minSuggestedDuration!=null allora l'annuncio è un nonLineare, altrimenti è un companion
 	function modificaInnerHTMLDivAnnuncio(div , urlType, url, width, height, q, minSuggestedDuration, timeOffset){
 		$(div).data("urlType", urlType);
 		//Aggiungo i formati più comuni per le immagini
@@ -632,7 +643,6 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 			var  millisecondStartShowing =  timeOffset * 1000;
 
 
-			//Scelgo per l'annuncio companion la durata di 10 seoondi, posso farlo durare una quantità a scelta, anche ad esempio nonLinearAd.getMinSuggestedDuration per farlo durare lo stesso periodo dell'annuncio nonLineare
 			var durata;
 			if(minSuggestedDuration!=null){
 				durata = minSuggestedDuration;
@@ -669,11 +679,15 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 			div.innerHTML= "";
 			div.appendChild(audioelement);
 
-			var firstInvokeOfOnPlay=true;
+			//Identica velocità di produzione del video player
+			audioelement.playbackRate = videoContent.playbackRate;
+			var onPlayFirstInvocation=true;
+			//Nascondo il div padre dell'audio element
 			$(div).css('display', 'none');
 			audioelement.onplay=function(){
-				if(!firstInvokeOfOnPlay)return;
-				firstInvokeOfOnPlay=false;
+				alert(onPlayFirstInvocation);
+				if(!onPlayFirstInvocation)return;
+				onPlayFirstInvocation=false;
 				//Da che secondo deve essere mostrato nel video player
 				var millisecondStartShowing = timeOffset * 1000;
 
@@ -681,7 +695,15 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 				//Durata
 				var durata;
 				if(minSuggestedDuration!=null){
-					durata =minSuggestedDuration;
+					var audioDuration = audioelement.duration * 1000;
+					/*Poiche un audio non può essere riprodotto per più della sua durata effettiva 
+					*(minSuggestedDuration > audioDuration non è una condizione accettabile)
+					*/
+					if (minSuggestedDuration>audioDuration)
+						durata = audioDuration;
+					//Altrimenti è possibile usare minSuggestedDuration
+					else durata = minSuggestedDuration;
+					
 
 				}	else {
 					durata =audioelement.duration*1000;
@@ -712,17 +734,26 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 			div.appendChild(videoelement);
 
 
-			var firstInvokeOfOnPlay=true;
+			var onPlayFirstInvocation=true;
 			$(div).css('display', 'none');
 			videoelement.onplay=function(){
-				if(!firstInvokeOfOnPlay)return;
-				firstInvokeOfOnPlay=false;
+				if(!onPlayFirstInvocation)return;
+				
+				onPlayFirstInvocation=false;
 				//Da che secondo deve essere mostrato nel video player
 				var millisecondStartShowing = timeOffset * 1000;
 
 				var durata;
+				/*Poiche un video non può essere riprodotto per più della sua durata effettiva 
+				*(minSuggestedDuration > videoDuration non è una condizione accettabile)
+				*/
 				if(minSuggestedDuration!=null){
-					durata = minSuggestedDuration;
+					var videoDuration = videoelement.duration * 1000;
+					if (minSuggestedDuration>audioDuration)
+						durata = videoDuration;
+					//Altrimenti è possibile usare minSuggestedDuration
+					else durata = minSuggestedDuration;
+					
 
 				}	else {
 					durata = videoelement.duration*1000;
@@ -813,7 +844,7 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 
 	//Evento lanciato al momento nel quale i dati sull'annuncio è caricato: segue l'evento STARTED
 	adsManager.addEventListener (
-			google.ima.AdEvent.Type.LOADED,
+			google.ima.AdEvent.Type.f,
 			function(evento){
 				divContainer.style= nonLinearStyle;
 				console.error('adLoaded');

@@ -27,7 +27,7 @@ var videoPlayerSizeModified=false;
 //variabile che mi serve a stabilire se esco dal fullscreen perché ci sono entrato con un fullscreenElement!=#mainContainer (ad esempio cioè con il video player)
 var enteringFullScreenWithoutMainContainer=false;
 //Funzione callback che viene chiamata ogni qual volta si passa da modalità non fullscreen a fullscreen e viceversa
-function fullScreenChange(mode){
+function fullScreenChange(){
 
 	//Controllo se il documento è attualmente mostrato a schermo intero
 	var isFullScreen = document.fullScreen || 
@@ -69,6 +69,8 @@ function fullScreenChange(mode){
 		$("#contentElement").css("height", window.screen.height + "px");
 		$("#mainContainer").css("width", window.screen.width + "px");
 		$("#mainContainer").css("height", window.screen.height + "px");
+		$("#adDivsContainer").css("width", window.screen.width + "px");
+		$("#adDivsContainer").css("height", window.screen.height - 20 + "px");
 		$("#mainContainer").css("margin", "0px");
 		fullScreenBoolean=true;
 		var fullScreenElement2 = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement || document.webkitFullscreenElement || document.webkitFullscreenElement;
@@ -112,6 +114,8 @@ function fullScreenChange(mode){
 		$("#contentElement").css("height", "360px");
 		$("#mainContainer").css("width", "640px");
 		$("#mainContainer").css("height", "360px");
+		$("#adDivsContainer").css("width",  "640px");
+		$("#adDivsContainer").css("height", "360px");
 		fullScreenBoolean=false;
 		if (adsManager){
 
@@ -153,7 +157,7 @@ function fullScreenChange(mode){
  */
 function resizeAndRepositionAds(mode, q, oldVideoPlayerWidth, oldVideoPlayerHeight,newVideoPlayerWidth , newVideoPlayerHeight){
 	//alertq);
-	var divAnnuncio = document.getElementById('companion-ad' + q);
+	var divAnnuncio = document.getElementById('adId' + q);
 	var ad = ads[q];
 	if(divAnnuncio!=null && divAnnuncio.innerHTML!=""){
 
@@ -226,7 +230,7 @@ $(document).ready(function(){
 	/*
 	 * Al click sul #fullscreenButton verifico se gia sto in modalità fullscreen o meno 
 	 */
-	$("#fullscreenButton").on("click",function(){
+	$("#fullscreenButton, #videoPlayerDefaultFullScreenButtonCover").on("click",function(){
 		var isFullScreen = document.fullScreen || 
 		document.mozFullScreen || 
 		document.webkitIsFullScreen;

@@ -32,8 +32,8 @@ Sia il content che l'ad container stanno in alto a sx della page
 #videoPlayerDefaultFullScreenButtonCover {
 	position: absolute;
 	z-index: 100;
-	width: 40px;
-	height: 40px;
+	width: 60px;
+	height: 60px;
 	bottom: 0px;
 	right: 0px;
 }
@@ -116,12 +116,12 @@ supports (-ms-ime-align:auto ) { #videoPlayerDefaultFullScreenButtonCover
 	line-height: 0;
 	/*display:none;*/
 }
-
+/*
 video::-webkit-media-controls-fullscreen-button {
 	background-color: red !important;
 	display: none !important;
 	pointer-events: none;
-}
+}*/
 
 video::-webkit-media-controls-play-button {
 	
@@ -285,6 +285,13 @@ video::-webkit-media-controls-volume-slider {
 }
 
 
+
+video::-webkit-media-controls-fullscreen-button 
+ {
+ background-color:red !important;
+ display: none !important;
+ pointer-events:none;
+}
 
 
 #consoleFirst {

@@ -33,9 +33,10 @@ public class XMLValidator {
 	 * viene effettuata la validazione, e ciò avviene in un blocco synchronized per permettere ad un unico thread 
 	 * @param xsdDaUsare La xsd da usare per validare il file XML.
 	 * @param xmlFile Il file XML da validare.
-	 * @return
+	 * @return True se e solo se la validazione ha successo, false altrimenti.
 	 */
 	public static boolean validate(String xsdDaUsare, String xmlFile) {
+		
 		/* Se il documento è gia stato validato precedentmente, ad esempio tramite filtro di una precedente
 		non ha senso validarlo nuovamente. Tutto ciò viene effettuato per velocizzare le operazioni.
 		*/
@@ -55,6 +56,7 @@ public class XMLValidator {
 		 * Dunque a volte potrei bloccare l'esecuzione di operazioni identiche, ALTRE NO. Una soluzione è usare 
 		 * https://google.github.io/guava/releases/19.0/api/docs/com/google/common/collect/Interners.html 
 		 */
+		
 		if(map.get(xsdDaUsare + xmlFile)!=null) {
 			return map.get(xsdDaUsare + xmlFile); 	
 		}
