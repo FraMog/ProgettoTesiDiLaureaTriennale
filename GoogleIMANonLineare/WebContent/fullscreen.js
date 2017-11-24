@@ -27,7 +27,7 @@ var videoPlayerSizeModified=false;
 //variabile che mi serve a stabilire se esco dal fullscreen perché ci sono entrato con un fullscreenElement!=#mainContainer (ad esempio cioè con il video player)
 var enteringFullScreenWithoutMainContainer=false;
 //Funzione callback che viene chiamata ogni qual volta si passa da modalità non fullscreen a fullscreen e viceversa
-function fullScreenChange(){
+function onFullScreenChange(){
 
 	//Controllo se il documento è attualmente mostrato a schermo intero
 	var isFullScreen = document.fullScreen || 
@@ -87,7 +87,7 @@ function fullScreenChange(){
 			}
 		}
 
-		
+
 	}
 	else{
 
@@ -135,7 +135,7 @@ function fullScreenChange(){
 		document.getElementById('contentElement').style=videoStyle;
 		document.getElementById('mainContainer').style=mainContainerStyle;
 
-		
+
 
 
 
@@ -173,14 +173,34 @@ function resizeAndRepositionAds(mode, q, oldVideoPlayerWidth, oldVideoPlayerHeig
 		//Nel caso in cui l'annuncio sia nel frattempo finito l'url comunque sarebbe null, dunque devo fare anche questo controllo
 		if(url!=null){
 			var urlType = url.substr(url.lastIndexOf('.') + 1);
-			if ("toFullscreen"== mode )
-				modificaSizeAnnuncio(divAnnuncio.firstChild,  urlType, ad.getWidth() * window.screen.width/640, ad.getHeight() * window.screen.height/360);
-			else if ("exitFullScreen" == mode ) modificaSizeAnnuncio(divAnnuncio.firstChild,  urlType, ad.getWidth(), ad.getHeight());
-			modificaPosAnnuncio(divAnnuncio, newVideoPlayerHeight,oldVideoPlayerHeight,  newVideoPlayerWidth, oldVideoPlayerWidth);
-		}
+			switch (urlType){
+			case "jpg": 
+			case "png":
+			case "gif":
+			case "bmp":
+			case "mp4":
+			default: {
+				if ("toFullscreen"== mode )
+					modificaSizeAnnuncio(divAnnuncio.firstChild,  urlType, ad.getWidth() * window.screen.width/640, ad.getHeight() * window.screen.height/360);
+				else if ("exitFullScreen" == mode ) modificaSizeAnnuncio(divAnnuncio.firstChild,  urlType, ad.getWidth(), ad.getHeight());
+				
+				modificaPosAnnuncio(divAnnuncio, newVideoPlayerHeight,oldVideoPlayerHeight,  newVideoPlayerWidth, oldVideoPlayerWidth);
+				break;
+				
+			}
 
+			
+			case "mp3": 
+			case "wav": 
+			case "ogg": {
+
+				break;
+			}
+			}
+
+		}
 	}
-}
+}	
 
 
 //Funzione che modifica la posizione dell'annuncio, secondo i parametri passati in input
@@ -199,30 +219,9 @@ function modificaPosAnnuncio(divAnnuncio, newVideoPlayerHeight,oldVideoPlayerHei
  * dimensione fisica sullo schermo, non è necessario
  */
 function modificaSizeAnnuncio(firstChild,  urlType, newWidth, newHeight){
-	switch (urlType){
-	case "mp3": 
-	case "wav": 
-	case "ogg": {
 
-		break;
-	}
-
-	case "jpg": 
-	case "png":
-	case "gif":
-	case "bmp":
-	case "mp4":
-	default:
-	{
-
-		firstChild.width=newWidth;
-		firstChild.height=newHeight;
-		break;
-
-	}
-
-
-	}
+	firstChild.width=newWidth;
+	firstChild.height=newHeight;
 }
 
 $(document).ready(function(){
@@ -273,6 +272,6 @@ $(document).ready(function(){
  * Registro la callback per il fullscreenChange 
  */
 $(document).bind('webkitfullscreenchange mozfullscreenchange fullscreenchange',function(){
-	fullScreenChange();
+	onFullScreenChange();
 
 });
